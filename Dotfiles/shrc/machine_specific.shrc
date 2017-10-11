@@ -1,0 +1,11 @@
+export PATH="${HOME}/.local/bin/:${HOME}/Source/Scripts/:${PATH}"
+
+function Anki {
+  /home/simba/Tools/anki-2.0.42/bin/anki
+}
+
+export REPOS_ROOT="${HOME}/Repos"
+alias Repos="cd ${REPOS_ROOT}"
+
+export PRIVATE_REPOS_ROOT="${REPOS_ROOT}/aszczerbiak"
+alias Aszczerbiak="cd ${PRIVATE_REPOS_ROOT}"

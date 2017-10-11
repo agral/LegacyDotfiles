@@ -1,0 +1,128 @@
+# This file contains exports, functions and aliases to be sourced
+# for all the shells on all the machines.
+# Author: simba (szczerbiakadam@gmail.com)
+
+# Disables the Ctrl-S/Ctrl-Q keystroke which mess up tmux:
+stty -ixon -ixoff
+
+export VISUAL=vim
+export EDITOR="${VISUAL}"
+
+export SHRC_DIR="${HOME}/.config/shrc"
+alias Shrc="cd ${SHRC_DIR}"
+
+# Creates a directory and immediately enters into it:
+function Mkdir {
+  mkdir -p -- "$1"
+  cd -P -- "$1"
+}
+# Sometimes you realize that you want to mkdir && cd into it after you already
+# have started typing. In that case use mkdiR instead of Mkdir (: :
+alias mkdiR="Mkdir"
+
+# Passes all the local aliases to sudo:
+alias sudo='sudo '
+
+### One-letter aliases: ###
+# Uses bc to calculate an expression provided as argument(s):
+function B {
+  if [ "${#}" -gt 0 ]; then
+    echo "${@}" | bc -l
+  else
+    echo "Error: please provide an expression to calculate."
+  fi
+}
+
+alias e='echo'
+
+# Sudoes the passed command (by default sudoes the last command):
+function s {
+  if [ "${#}" -eq 0 ]; then
+    sudo "$(history -p '!!')"
+  else
+    sudo "${@}"
+  fi
+}
+
+alias q='exit'
+### End of one-letter aliases' section ###
+
+# Frag'em easier:
+alias k9='kill -9'
+alias ka='killall'
+
+# Fixes tmux on exotic terminals:
+alias tmux='TERM=xterm-256color tmux -2'
+
+# Forces color support of ls and various grep flavors:
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+alias ls='ls --color=auto'
+
+# Useful ls aliases:
+alias la='ls -A'
+alias ll='ls -AlF'
+alias lal='ls -Al'
+alias lss='ls -Al'
+alias l='ls -CF'
+alias lt='ls -alptr' # shows results sorted by time, oldest first.
+alias labc='ls -lap' # shows results sorted alphabetically (ascending order).
+
+# Easier $PATH echoing:
+alias Path='echo -e ${PATH//:/\\n}'
+
+# Easy time and date:
+alias Now='date +"%T"'
+alias Nowtime=Now
+alias Nowdate='date +"%d-%m-%Y"'
+
+# Better & faster ping tool:
+alias Ping='ping -c 10 -i.2'
+
+# Git Amend Date
+alias gad='GIT_COMMITER_DATE="`date`" git commit --amend --date="`date`"'
+
+# Enables easy cd'ing:
+alias cd..='cd ..'            #  A typo autocorrection
+alias ..='cd ..'
+alias .2='cd ../..'
+alias .3='cd ../../..'
+alias .4='cd ../../../..'
+alias .5='cd ../../../../..'
+
+# Jokes on you: Find in Random
+alias fr='cat /dev/urandom | hexdump -C | grep --color=auto "ff ff ff"'
+alias fra='cat /dev/urandom | hexdump -C | grep --color=auto'
+alias cafe='cat /dev/urandom | hexdump -C | grep --color=auto "ca fe" | lolcat -a'
+
+# Extracts archives easily:
+function Extract {
+  if [ -f "${1}" ]; then
+    case "${1}" in
+      *.tar.bs2)      tar xjvf "${1}"    ;;
+      *.tar.gz)       tar xzvf "${1}"    ;;
+      *.bz2)          bunzip2 "${1}"     ;;
+      *.rar)          unrar "${1}"       ;;
+      *.gz)           gunzip "${1}"      ;;
+      *.tar)          tar xvf "${1}"     ;;
+      *.tbz2)         tar xjvf "${1}"    ;;
+      *.tgz)          tar xzvf "${1}"    ;;
+      *.zip)          unzip "${1}"       ;;
+      *.Z)            uncompress "${1}"  ;;
+      *.7z)           7z x "${1}"        ;;
+      *)              printf "Unrecognized format: %s\n" "${1}" ;;
+    esac
+  else
+    printf "%s is not a valid file." "${1}"
+  fi
+}
+
+# Checks the weather for a selected town in a console:
+function Weather {
+  local TOWN="warsaw"
+  if [ "${#}" -ne 0 ]; then
+    TOWN="${@}"
+  fi
+  curl "wttr.in/${TOWN}"
+}

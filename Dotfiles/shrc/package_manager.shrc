@@ -1,0 +1,35 @@
+### package_manager.shrc ###
+
+### These functions offer consistent syntax for package managing across multiple
+### Linux distributions.
+
+function pacget {
+  sudo pacman -S "${@}"
+}
+
+function pacsearch {
+  pacman -Ss "${@}"
+}
+
+
+### Non-mandatory functions:
+function aurget {
+  yaourt -S "${@}"
+}
+
+function aursearch {
+  yaourt -Ss "${@}"
+}
+
+function pacuupg {
+  sudo pacman -Syyu
+  local result="${?}"
+  if [ "${result}" -eq 0 ]; then
+    printf "System upgrade successfully completed.\n"
+    mplayer "${HOME}/Audio/Sound/Warcraft3/upgrade-complete-necro.wav" 2>/dev/null 1>&2
+  else
+    printf "System upgrade FAILED.\n"
+    mplayer "${HOME}/Audio/Sound/Warcraft3/jobs-done.wav" 2>/dev/null 1>&2
+  fi
+  return "${result}"
+}
