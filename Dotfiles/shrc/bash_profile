@@ -1,4 +1,14 @@
-# include .bashrc if it exists
+# Includes ~/.local/bin in the PATH (if it exists):
+if [ -d "${HOME}/.local/bin" ]; then
+  export PATH="${HOME}/.local/bin:${PATH}"
+fi
+
+# Includes ~/Source/Scripts in the PATH (if it exists):
+if [ -d "${HOME}/Source/Scripts" ]; then
+  export PATH="${HOME}/Source/Scripts:${PATH}"
+fi
+
+# Includes .bashrc (if it exists)
 if [ -f "${HOME}/.bashrc" ]; then
   . "${HOME}/.bashrc"
 fi
