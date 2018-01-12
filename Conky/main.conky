@@ -1,0 +1,53 @@
+conky.config = {
+  alignment = "top_left",
+  gap_x = 32 + 25,       -- 32 px reserved for tint-bar.
+  gap_y = 25,
+  maximum_width = 500,
+  minimum_width = 500,
+  minimum_height = 400,
+  update_interval = 1,
+
+  -- lua_draw_hook_post = (function)
+  lua_load = "/home/simba/Repos/aszczerbiak/Dotfiles/Conky/main.lua",
+  lua_draw_hook_pre = "main",
+
+  background = false,         -- do not fork Conky to background after staring.
+  border_inner_margin = 0,
+  border_outer_margin = 0,
+  border_width = 1,
+  default_color = "839496",
+  default_outline_color = "000000",
+  default_shade_color = "000000",
+  disable_auto_reload = false,
+  double_buffer = true,
+  draw_borders = false,
+  draw_outline = false,
+  draw_shades = true,
+  extra_newline = false,
+  font = "Gohu\ GohuFont:size=8",
+  format_human_readable = true,
+  if_up_strictness = "link",
+  imlib_cache_size = 8000000, -- 8 MiB for cache size is enough.
+  max_text_width = 0,         -- never breaks long lines of text.
+  mpd_host = "127.0.0.1",
+  music_player_interval = 1,
+  override_utf8_locale = true,
+  own_window = true,
+  own_window_class = "Conky",
+  own_window_colour = "000000", -- actually it is transparent, see below.
+  own_window_transparent = true,
+  own_window_hints = "undecorated,below,sticky",
+  own_window_type = "override",
+  pad_percents = 0,
+  stippled_borders = 0,
+  uppercase = false,
+  use_spacer = "none",
+  show_graph_scale = false,
+  show_graph_range = false,
+  use_xft = true,
+
+}
+
+conky.text = [[
+${exec cat "/home/simba/Repos/aszczerbiak/Dotfiles/Conky/motd"}
+]];
