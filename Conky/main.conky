@@ -11,7 +11,7 @@ conky.config = {
   lua_load = "/home/simba/Repos/aszczerbiak/Dotfiles/Conky/main.lua",
   lua_draw_hook_pre = "main",
 
-  background = false,         -- do not fork Conky to background after staring.
+  background = false,        -- do not fork Conky to background after starting.
   border_inner_margin = 0,
   border_outer_margin = 0,
   border_width = 1,
@@ -49,5 +49,14 @@ conky.config = {
 }
 
 conky.text = [[
+${exec df -h}
+
+${color 93a1a1}CPU average load: ${color 6c71c4}${cpu}%
+${color 93a1a1}\#1: ${color 268db2}${cpu cpu0}% \
+${color 93a1a1}| \#2: ${color 268db2}${cpu cpu1}% \
+${color 93a1a1}| \#3: ${color 268db2}${cpu cpu2}% \
+${color 93a1a1}| \#4: ${color 268db2}${cpu cpu3}%
+
+${color 93a1a1}MOTD:${color 2aa198}
 ${exec cat "/home/simba/Repos/aszczerbiak/Dotfiles/Conky/motd"}
 ]];
