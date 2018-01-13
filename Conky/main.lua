@@ -15,8 +15,9 @@ require("cairo")
   exports two global variables, "cr" and "csurface".
 --]]
 function conky_main()
-  if not conky_window or conky_window.width == 0 or conky_window.height == 0 then
-    return
+  if not conky_window or conky_window.width == 0
+    or conky_window.height == 0 then
+      return
   end
 
   if cr == nil then
