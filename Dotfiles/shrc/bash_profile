@@ -1,11 +1,11 @@
-# Includes ~/.local/bin in the PATH (if it exists):
-if [ -d "${HOME}/.local/bin" ]; then
-  export PATH="${HOME}/.local/bin:${PATH}"
-fi
-
-# Includes ~/Source/Scripts in the PATH (if it exists):
+# Adds ~/Source/Scripts to the top of PATH (if it exists):
 if [ -d "${HOME}/Source/Scripts" ]; then
   export PATH="${HOME}/Source/Scripts:${PATH}"
+fi
+
+# Adds ~/.local/bin to the top of PATH (if it exists):
+if [ -d "${HOME}/.local/bin" ]; then
+  export PATH="${HOME}/.local/bin:${PATH}"
 fi
 
 # Includes .bashrc (if it exists)
