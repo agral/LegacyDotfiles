@@ -1,0 +1,41 @@
+##### ----- After 0 seconds (immediately): ------ ######
+# Disables blanking of the screen:
+xset -dpms
+xset s off
+
+# Starts the tint2 bar:
+tint2 &
+
+# Sets the wallpaper:
+(~/Source/Scripts/MachineSpecific/FehWallpaperSetter) &
+
+# Sets the dvorak keyboard layout with handy options:
+(~/Source/Scripts/Setkeyboard d) &
+
+# Recreates directory structure in the ramdisk:
+(~/Source/Scripts/MachineSpecific/SetupTmpfs) &
+
+# Starts the MPD:
+(mpd ~/.config/mpd/mpd.conf) &
+
+##### ----- After 1 second: ------ ######
+# Starts the NetworkManager's applet:
+(sleep 1s && nm-applet) &
+
+# Starts the drop-down terminals - tilda, guake and yakuake:
+(sleep 1s && tilda) &
+(sleep 1s && guake) &
+(sleep 1s && yakuake) &
+
+# Starts the unicode rxvt daemon:
+(sleep 1s && urxvtd) &
+
+##### ----- After 2 seconds: ----- ######
+# Starts the compositing manager:
+(sleep 2s && compton) &
+
+##### ----- After 3 seconds: ----- ######
+# Starts all the conkies:
+(sleep 3s && conky -c ~/.config/conky/solarized_conky.conf) &
+(sleep 3s && conky -c ~/.config/conky/keyboard_conky.conf) &
+(sleep 3s && conky -c ~/Repos/aszczerbiak/Dotfiles/Conky/main.conky) &
