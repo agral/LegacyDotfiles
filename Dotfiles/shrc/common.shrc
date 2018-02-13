@@ -35,6 +35,14 @@ function B {
 
 alias e='echo'
 
+# Sets up 'g' as an alias for 'git', with autocompletion:
+alias g='git'
+__GIT_COMPLETION_FILE="/usr/share/bash-completion/completions/git"
+if [ -f "${__GIT_COMPLETION_FILE}" ]; then
+  source "${__GIT_COMPLETION_FILE}"
+  __git_complete g __git_main
+fi
+
 # Sudoes the passed command (by default sudoes the last command):
 function s {
   if [ "${#}" -eq 0 ]; then
