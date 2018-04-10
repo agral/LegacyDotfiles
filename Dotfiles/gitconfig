@@ -1,0 +1,54 @@
+[alias]
+  br = branch
+  ci = commit
+  cia = commit --amend
+  cl = clone
+  co = checkout
+  cob = checkout -b
+  cp = cherry-pick
+  pullff = pull --ff-only
+  prb = pull --rebase
+  s = status -s
+  st = status
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  lastn = log -1 HEAD --name-only
+
+# The simplest logs - l/lo/log/ls/lss:
+  l = log --pretty=format:"%C(Yellow)%h\\ %Creset%s" --decorate
+  lo = log --pretty=format:"%C(Yellow)%H\\ %Creset%s" --decorate
+  ls = log --pretty=format:"%C(Yellow)%h\\ %C(Blue)%<(15,trunc)%aN\\ %C(White)%<(50,trunc)%s\\ %C(bold\\ Cyan)%d" --decorate
+  lss = log --pretty=format:"%C(Yellow)%h\\ %C(Blue)%<(15,trunc)%aN\\ %C(bold\\ White)%s\\ %C(bold\\ Cyan)%d" --decorate --numstat
+
+# ld/lds command: [L]ist files with [D]ates (and optionally with num{S}tats)
+  ld = log --pretty=format:"%C(Yellow)%h\\ %C(Green)%ad\\ %C(Blue)%<(15,trunc)%aN\\ %C(White)%<(50,trunc)%s\\ %C(bold\\ Cyan)%d" --decorate --date=short
+  lds = log --pretty=format:"%C(Yellow)%h\\ %C(Green)%ad\\ %C(Blue)%<(15,trunc)%aN\\ %C(bold\\ White)%s\\ %C(bold\\ Cyan)%d" --decorate --numstat --date=short
+
+# lc/lcs: [L]ist [C]ommitters info [with num[S]tats]
+  lc = log --pretty=format:"%C(Yellow)%h\\ %C(Blue)%<(15,trunc)%aN%Creset\\ ->\\ %C(Magenta)%<(15,trunc)%cN\\ %C(White)%<(50,trunc)%s\\ %C(bold\\ Cyan)%d" --decorate
+  lcs = log --pretty=format:"%C(Yellow)%h\\ %C(Blue)%<(15,trunc)%aN%Creset\\ ->\\ %C(Magenta)%<(15,trunc)%cN\\ %C(bold\\ White)%<(50,trunc)%s\\ %C(bold\\ Cyan)%d" --decorate --numstat
+
+# lcd/lcds: [L]ist [C]ommitters and [D]ates info [with [T]imes] [with num[S]tats]
+  lcd = log --pretty=format:"%C(Yellow)%h\\ %C(Green)%ad\\ %C(Blue)%<(15,trunc)%aN%Creset\\ ->\\ %C(Magenta)%<(15,trunc)%cN\\ %C(Cyan)%cd\\ %C(White)%<(50,trunc)%s\\ %C(bold\\ Cyan)%d" --decorate --date=short
+  lcds = log --pretty=format:"%C(Yellow)%h\\ %C(Green)%ad\\ %C(Blue)%<(15,trunc)%aN%Creset\\ ->\\ %C(Magenta)%<(15,trunc)%cN\\ %C(Cyan)%cd\\ %C(bold\\ White)%<(50,trunc)%s\\ %C(bold\\ Cyan)%d" --decorate --numstat --date=short
+  lcdt = log --pretty=format:"%C(Yellow)%h\\ %C(Green)%ad\\ %C(Blue)%<(15,trunc)%aN%Creset\\ ->\\ %C(Magenta)%<(15,trunc)%cN\\ %C(Cyan)%cd\\ %C(White)%<(50,trunc)%s\\ %C(bold\\ Cyan)%d" --decorate --date=iso
+  lcdts = log --pretty=format:"%C(Yellow)%h\\ %C(Green)%ad\\ %C(Blue)%<(15,trunc)%aN%Creset\\ ->\\ %C(Magenta)%<(15,trunc)%cN\\ %C(Cyan)%cd%n%C(bold\\ White)%<(80,trunc)%s\\ %C(bold\\ Cyan)%d" --decorate --numstat --date=iso
+
+# Finds a file path in a source tree:
+  find = "!git ls-files | grep -i --color=auto"
+# searches the entire codebase for a given string:
+  grep = grep -Ii
+
+# list all the git aliases:
+  la = "!git config -l | grep alias | cut -c 7-"
+
+# Allows for quick editing of this file:
+  ec = config --global -e
+[diff]
+  renames = copies
+  mnemonicprefix = true
+[push]
+  default = simple
+[user]
+  name = agral
+  email = adam@gralin.ski
