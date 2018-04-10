@@ -1,0 +1,8 @@
+#!/bin/sh
+
+xresources_user="${HOME}/.Xresources"
+if [ -f "${xresources_user}" ]; then
+    xrdb -merge "${xresources_user}"
+fi
+
+exec openbox-session

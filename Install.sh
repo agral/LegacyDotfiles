@@ -69,6 +69,7 @@ Install "${OPENBOX_SRCDIR}/rc.xml" "${OPENBOX_TARDIR}/rc.xml"
 printf "\n%s:\n" "3. Other config files"
 Install "${DOTFILES_BASEDIR}/gitconfig" "${HOME}/.gitconfig"
 Install "${DOTFILES_BASEDIR}/tmux.conf" "${HOME}/.tmux.conf"
+Install "${DOTFILES_BASEDIR}/xinitrc" "${HOME}/.xinitrc"
 Install "${DOTFILES_BASEDIR}/Xresources" "${HOME}/.Xresources"
 
 printf "=== Done. ===\n"
