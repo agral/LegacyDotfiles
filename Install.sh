@@ -32,7 +32,7 @@ function Install
 
   if [ ! -f "${2}" ]; then
     printf "  -> Target not found, installing... "
-    mkdir "${TARGET_PARENT_DIR}" && cp "${1}" "${2}"
+    mkdir -p "${TARGET_PARENT_DIR}" && cp "${1}" "${2}"
     if [ "${?}" -eq 0 ]; then
       printf "done.\n"
     else
@@ -55,19 +55,18 @@ SHRC_TARDIR="${HOME}/.config/shrc"
 Install "${SHRC_SRCDIR}/bash_profile" "${HOME}/.bash_profile"
 Install "${SHRC_SRCDIR}/bashrc" "${HOME}/.bashrc"
 Install "${SHRC_SRCDIR}/common.shrc" "${SHRC_TARDIR}/common.shrc"
-Install \
-    "${SHRC_SRCDIR}/package_manager.shrc" \
-    "${SHRC_TARDIR}/package_manager.shrc"
-Install \
-    "${SHRC_SRCDIR}/machine_specific.shrc" \
-    "${SHRC_TARDIR}/machine_specific.shrc"
+Install "${SHRC_SRCDIR}/package_manager.shrc" "${SHRC_TARDIR}/package_manager.shrc"
+Install "${SHRC_SRCDIR}/machine_specific.shrc" "${SHRC_TARDIR}/machine_specific.shrc"
 
-printf "%s:\n" "2. Openbox config files"
+printf "\n%s:\n" "2. Openbox config files"
 OPENBOX_SRCDIR="${DOTFILES_BASEDIR}/openbox"
 OPENBOX_TARDIR="${HOME}/.config/openbox"
 Install "${OPENBOX_SRCDIR}/autostart" "${OPENBOX_TARDIR}/autostart"
 Install "${OPENBOX_SRCDIR}/environment" "${OPENBOX_TARDIR}/environment"
 Install "${OPENBOX_SRCDIR}/menu.xml" "${OPENBOX_TARDIR}/menu.xml"
 Install "${OPENBOX_SRCDIR}/rc.xml" "${OPENBOX_TARDIR}/rc.xml"
+
+printf "\n%s:\n" "3. Other config files"
+Install "${DOTFILES_BASEDIR}/tmux.conf" "${HOME}/.tmux.conf"
 
 printf "=== Done. ===\n"
