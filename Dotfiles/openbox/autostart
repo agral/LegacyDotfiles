@@ -38,4 +38,5 @@ tint2 &
 # Starts all the conkies:
 (sleep 3s && conky -c ~/.config/conky/solarized_conky.conf) &
 (sleep 3s && conky -c ~/.config/conky/keyboard_conky.conf) &
-(sleep 3s && conky -c ~/Repos/aszczerbiak/Dotfiles/Conky/main.conky) &
+(sleep 3s && conky -c ~/.config/conky/Experimental/info.conky) &
+(sleep 3s && conky -c ~/.config/conky/Experimental/Clock/clock.conky) &
