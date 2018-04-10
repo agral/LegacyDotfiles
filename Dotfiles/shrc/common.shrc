@@ -2,7 +2,7 @@
 # for all the shells on all the machines.
 # Author: simba (szczerbiakadam@gmail.com)
 
-# Disables the Ctrl-S/Ctrl-Q keystroke which mess up tmux:
+# Disables the Ctrl-S/Ctrl-Q keystrokes which mess up tmux:
 stty -ixon -ixoff
 
 export VISUAL=vim
@@ -17,14 +17,14 @@ function Mkdir {
   cd -P -- "$1"
 }
 # Sometimes you realize that you want to mkdir && cd into it after you already
-# have started typing. In that case use mkdiR instead of Mkdir (: :
+# have started typing. In that case use mkdiR instead of Mkdir :
 alias mkdiR="Mkdir"
 
 # Passes all the local aliases to sudo:
 alias sudo='sudo '
 
 ### One-letter aliases: ###
-# Uses bc to calculate an expression provided as argument(s):
+# Uses bc to evaluate an expression provided as argument(s):
 function B {
   if [ "${#}" -gt 0 ]; then
     echo "${@}" | bc -l
@@ -81,14 +81,14 @@ alias labc='ls -lap' # shows results sorted alphabetically (ascending order).
 alias Path='echo -e ${PATH//:/\\n}'
 
 # Easy time and date:
-alias Now='date +"%T"'
-alias Nowtime=Now
-alias Nowdate='date +"%d-%m-%Y"'
+alias Time='date "+%T"'
+alias Date='date "+%d.%m.%Y"'
+alias Unixtime='date "+%s"'
 
 # Better & faster ping tool:
 alias Ping='ping -c 10 -i.2'
 
-# Git Amend Date
+# Git Amend Date - sets author's & committer's date to current time.
 alias gad='GIT_COMMITER_DATE="`date`" git commit --amend --date="`date`"'
 
 # Enables easy cd'ing:
@@ -128,7 +128,7 @@ function Extract {
 
 # Checks the weather for a selected town in a console:
 function Weather {
-  local TOWN="warsaw"
+  local TOWN="Warsaw"
   if [ "${#}" -ne 0 ]; then
     TOWN="${@}"
   fi
