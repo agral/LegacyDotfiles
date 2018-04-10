@@ -1,0 +1,46 @@
+Xft.antialias:         true
+Xft.dpi:               96
+Xft.rgba:              rgb
+Xft.hinting:           true
+Xft.hintstyle:         hintslight
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                                    URxvt:                                    !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+URxvt.depth:           32
+URxvt.loginShell:      true
+URxvt.internalBorder:  1
+URxvt.lineSpace:       0
+
+!Using real transparency (depth == 32), faking transparency is not necessary:
+URxvt*transparent:     false
+
+URxvt*saveLines:       10000
+URxvt*font:            xft:Gohu\ GohuFont:pixelsize=8
+URxvt*boldFont:        xft:Gohu\ GohuFont:pixelsize=8
+URxvt*letterSpace:     0
+URxvt*scrollBar:       false
+URxvt*scrollStyle:     plain
+
+URxvt.perl-ext-common: default,matcher,clipboard
+URxvt.iso14755:        false
+URxvt.keysym.Shift-Control-C: perl:clipboard:copy
+URxvt.keysym.Shift-Control-V: perl:clipboard:paste
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                                    XTerm:                                    !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+xterm*font:            Gohu\ GohuFont:pixelsize=11
+xterm*boldFont:        Gohu\ GohuFont:pixelsize=11
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!                                    COLORS                                    !
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+#include "/home/simba/.local/Xresourcesd/molokai"
+!#include "/home/simba/.local/Xresourcesd/dosbox"
+!#include "/home/simba/.local/Xresourcesd/solarized"
+
+! Changing the colors dynamically:
+URxvt.keysym.C-8:      command:\033]49;[92]#002b36\007\033]10;#eee8d5\007
+URxvt.keysym.C-9:      command:\033]49;[92]#eee8d5\007\033]10;#002b36\007
+URxvt.keysym.C-0:      command:\033]49;[92]#101010\007\033]10;#eee8d5\007
