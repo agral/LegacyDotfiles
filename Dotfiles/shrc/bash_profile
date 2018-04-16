@@ -11,8 +11,8 @@ function ExpandPath
 ExpandPath "${HOME}/Source/Scripts"
 ExpandPath "${HOME}/.local/bin"
 ExpandPath "${HOME}/.local/bin/MachineSpecific"
-export PATH_ALREADY_EXPANDED="yes"
 
+export QT_SELECT=5
 
 # Includes .bashrc (if it exists)
 if [ -f "${HOME}/.bashrc" ]; then
