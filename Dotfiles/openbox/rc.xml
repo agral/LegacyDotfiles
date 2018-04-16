@@ -338,7 +338,12 @@
   </keybind>
   <keybind key="XF86TouchpadToggle">
     <action name="Execute">
-      <command>/home/simba/Source/Scripts/TouchpadToggle</command>
+      <command>bash /home/simba/.local/bin/MachineSpecific/DellToggleTouchpad.sh</command>
+    </action>
+    <action name="Execute">
+      <command>
+        notify-send -t 2000 "Touchpad toggled" "Hardware state modification"
+      </command>
     </action>
   </keybind>
   <!-- End of keybindings for handling the multimedia keys. -->
