@@ -14,6 +14,11 @@ HISTFILESIZE=200000
 # Checks the window size after each command and automatically updates the values of LINES and COLUMNS:
 shopt -s checkwinsize
 
+function extract_git_branch()
+{
+  git branch 2>/dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
 function make_bash_prompt()
 {
   local EXITCODE="$?"                 # This needs to be first.
@@ -52,7 +57,12 @@ function make_bash_prompt()
   if [ "$EXITCODE" -ne "0" ]; then
     exitcolor="$colorY"      # abnormal exit color - yellow.
   fi
-  PS1="${colorNONE}[${exitcolor}$EXITCODE${colorNONE}] [${colorM}\t${colorNONE}] ${usercolor}\u${colorNONE} in ${colorB}\w ${usercolor}\n\$${colorNONE} "
+  local gitbr="$(extract_git_branch)"
+  local prompt_gitbr_part=""
+  if [ "${gitbr}" ]; then
+    printf -v prompt_gitbr_part " on ${colorYEM}%s${colorNONE}" "${gitbr}"
+  fi
+  PS1="${colorNONE}[${exitcolor}$EXITCODE${colorNONE}] [${colorM}\t${colorNONE}] ${usercolor}\u${colorNONE} in ${colorB}\w${colorNONE}${prompt_gitbr_part}\n${usercolor}\$${colorNONE} "
 }
 
 PROMPT_COMMAND=make_bash_prompt
