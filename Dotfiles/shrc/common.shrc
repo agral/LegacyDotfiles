@@ -1,12 +1,9 @@
-# This file contains exports, functions and aliases to be sourced
+# This file contains functions and aliases to be sourced
 # for all the shells on all the machines.
 # Author: simba (szczerbiakadam@gmail.com)
 
 # Disables the Ctrl-S/Ctrl-Q keystrokes which mess up tmux:
 stty -ixon -ixoff
-
-export VISUAL=vim
-export EDITOR="${VISUAL}"
 
 export SHRC_DIR="${HOME}/.config/shrc"
 alias Shrc="cd ${SHRC_DIR}"

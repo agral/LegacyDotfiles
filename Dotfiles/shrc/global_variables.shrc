@@ -1,0 +1,32 @@
+# Name:          global_variables SHRC file
+# Description:   Part of bash configuration. Contains exports of various global variables.
+# Options:       None
+# Created on:    18-04-2018
+# Last modified: 18-04-2018
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       MIT
+
+
+# Uses colors for GCC warnings and errors:
+export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+
+# Extends the history log with a timestamp:
+export HISTTIMEFORMAT="[%d-%m %T] "
+
+# Bash-specific color codes for manpages:
+export LESS_TERMCAP_mb=$'\E[01;31m'
+export LESS_TERMCAP_md=$'\E[01;31m'
+export LESS_TERMCAP_me=$'\E[0m'
+export LESS_TERMCAP_se=$'\E[0m'
+export LESS_TERMCAP_so=$'\E[01;44;33m'
+export LESS_TERMCAP_ue=$'\E[0m'
+export LESS_TERMCAP_us=$'\E[01;32m'
+
+# Uses Vim as the default editor:
+export VISUAL=vim
+export EDITOR="${VISUAL}"
+
+
+# Uses Qt5 whenever possible:
+export QT_SELECT=5
+
