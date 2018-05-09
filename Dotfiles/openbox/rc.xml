@@ -980,10 +980,7 @@
   <keybind key="W-S-q">
     <keybind key="s">
       <action name="Execute">
-        <command>XLock</command>
-      </action>
-      <action name="Execute">
-        <execute>systemctl suspend</execute>
+        <command>Suspend</command>
       </action>
     </keybind>
     <keybind key="r">
