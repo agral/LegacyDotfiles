@@ -400,7 +400,7 @@
     </keybind>
     <keybind key="e">
       <action name="Execute">
-        <command>thunar ~/.config/openbox</command>
+        <command>spacefm -w ~/.config/openbox</command>
       </action>
     </keybind>
     <keybind key="r">
@@ -424,6 +424,15 @@
 
   <!-- Key-chains for invoking the applications: -->
   <keybind key="W-a">
+    <keybind key="a">
+      <action name="Execute">
+        <command>arandr</command>
+      </action>
+      <action name="Execute">
+        <command>notify-send -t 1500 "Arandr" "Launching"</command>
+      </action>
+    </keybind>
+
     <keybind key="S-a">
       <action name="Execute">
         <command>anki</command>
@@ -452,6 +461,14 @@
     </keybind>
 
     <keybind key="e">
+      <action name="Execute">
+        <command>spacefm</command>
+      </action>
+      <action name="Execute">
+        <command>notify-send -t 1000 "SpaceFM" "Launching"</command>
+      </action>
+    </keybind>
+    <keybind key="S-e">
       <action name="Execute">
         <command>thunar</command>
       </action>
@@ -502,6 +519,15 @@
       </action>
       <action name="Execute">
         <command>notify-send -t 1000 "qutebrowser" "Launching"</command>
+      </action>
+    </keybind>
+
+    <keybind key="S-q">
+      <action name="Execute">
+        <command>qtcreator</command>
+      </action>
+      <action name="Execute">
+        <command>notify-send -t 1500 "QtCreator" "Launching"</command>
       </action>
     </keybind>
 
@@ -558,89 +584,84 @@
   </keybind>
   <!-- End of the keychains for invoking the applications. -->
 
-  <!-- Keychain invoking the file explorer (thunar): -->
+  <!-- Keychain invoking the file explorer (spacefm): -->
   <keybind key="W-e">
     <keybind key="S-a">
       <action name="Execute">
-        <command>thunar "Archived"</command>
+        <command>spacefm -w "Archived"</command>
       </action>
     </keybind>
     <keybind key="a">
       <action name="Execute">
-        <command>thunar "Audio/Music/"</command>
-      </action>
-    </keybind>
-    <keybind key="b">
-      <action name="Execute">
-        <command>thunar "Builds/"</command>
+        <command>spacefm -w "Audio/Music/"</command>
       </action>
     </keybind>
     <keybind key="d">
       <action name="Execute">
-        <command>thunar "Documents/"</command>
+        <command>spacefm -w "Documents/"</command>
       </action>
     </keybind>
 
-    <!-- [W-e, e] launches Thunar in a home directory. -->
+    <!-- [W-e, e] launches spacefm in a home directory. -->
     <keybind key="e">
       <action name="Execute">
-        <command>thunar</command>
+        <command>spacefm -w</command>
       </action>
     </keybind>
 
     <keybind key="i">
       <action name="Execute">
-        <command>thunar "IN"</command>
+        <command>spacefm -w "IN"</command>
       </action>
     </keybind>
     <keybind key="l">
       <action name="Execute">
-        <command>thunar "Learning"</command>
+        <command>spacefm -w "Learning"</command>
       </action>
     </keybind>
     <keybind key="o">
       <action name="Execute">
-        <command>thunar "OUT"</command>
+        <command>spacefm -w "OUT"</command>
       </action>
     </keybind>
     <keybind key="p">
       <action name="Execute">
-        <command>thunar "Pictures"</command>
+        <command>spacefm -w "Pictures"</command>
       </action>
     </keybind>
     <keybind key="S-p">
       <action name="Execute">
-        <command>thunar "Private"</command>
+        <command>spacefm -w "Private"</command>
       </action>
     </keybind>
     <keybind key="r">
       <action name="Execute">
-        <command>thunar "Repos"</command>
+        <command>spacefm -w "Repos"</command>
       </action>
     </keybind>
     <keybind key="S-s">
       <action name="Execute">
-        <command>thunar "SelfMade"</command>
+        <command>spacefm -w "SelfMade"</command>
       </action>
     </keybind>
     <keybind key="s">
       <action name="Execute">
-        <command>thunar "Source"</command>
+        <command>spacefm -w "Source"</command>
       </action>
     </keybind>
     <keybind key="t">
       <action name="Execute">
-        <command>thunar "Tools"</command>
+        <command>spacefm -w "Tools"</command>
       </action>
     </keybind>
     <keybind key="u">
       <action name="Execute">
-        <command>thunar ".vim/UltiSnips/"</command>
+        <command>spacefm -w ".vim/UltiSnips/"</command>
       </action>
     </keybind>
     <keybind key="v">
       <action name="Execute">
-        <command>thunar "VMs/Shared"</command>
+        <command>spacefm -w "VMs/Shared"</command>
       </action>
     </keybind>
   </keybind>
@@ -666,7 +687,7 @@
         <command>notify-send -t 1500 "Lock user" "System lock"</command>
       </action>
       <action name="Execute">
-        <command>XLock</command>
+        <command>I3Lock</command>
       </action>
     </keybind>
 
@@ -683,7 +704,7 @@
     </keybind>
 
     <!-- Keychains for modifying the number of connected screens: -->
-    <keybind key="W-s">
+    <keybind key="s">
       <keybind key="1">
         <action name="Execute">
           <command>bash /home/simba/Source/Scripts/Monitors.sh 1</command>
@@ -704,14 +725,13 @@
           </command>
         </action>
       </keybind>
+      <keybind key="o">
+        <action name="Execute">
+          <command>bash -c "xset dpms force off"</command>
+        </action>
+      </keybind>
     </keybind>
     <!-- End of the keychains for modifying the number of connected screens. -->
-
-    <keybind key="F1">
-      <action name="Execute">
-        <command>xset dpms force off</command>
-      </action>
-    </keybind>
 
     <!-- Keybindings for selecting the keyboard layout: -->
     <keybind key="W-k">
@@ -776,6 +796,12 @@
     </keybind>
     <keybind key="m">
       <action name="ToggleMaximizeFull" />
+    </keybind>
+    <keybind key="o">
+      <action name="ToggleOmnipresent" />
+      <action name="Execute">
+        <command>notify-send -t 1000 "Toggled omnipresence"</command>
+      </action>
     </keybind>
   </keybind>
   <!-- End of the keychains for modifying the windows. -->
@@ -1439,6 +1465,9 @@
     <decor>no</decor>
   </application>
   <application name="thunar">
+    <focus>yes</focus>
+  </application>
+  <application name="spacefm">
     <focus>yes</focus>
   </application>
 </applications>

@@ -22,10 +22,10 @@ tint2 &
 # Starts the NetworkManager's applet:
 (sleep 1s && nm-applet) &
 
-# Starts the drop-down terminals - tilda, guake and yakuake:
+# Starts the drop-down terminals - tilda (3 instances)
 (sleep 1s && tilda) &
-(sleep 1s && guake) &
-(sleep 1s && yakuake) &
+(sleep 1s && tilda) &
+(sleep 1s && tilda) &
 
 # Starts the unicode rxvt daemon:
 (sleep 1s && urxvtd) &
@@ -39,3 +39,7 @@ tint2 &
 (sleep 3s && conky -c ~/.config/conky/solarized_conky.conf) &
 (sleep 3s && conky -c ~/.config/conky/Experimental/info.conky) &
 (sleep 3s && conky -c ~/Source/Conky/Clock/clock.conky) &
+
+##### ----- After 4 seconds: ----- ######
+# Starts the Dunst notification daemon:
+(sleep 4s && dunst) &
