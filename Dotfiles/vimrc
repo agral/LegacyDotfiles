@@ -1,0 +1,277 @@
+set nocompatible
+set t_Co=256
+set encoding=utf-8
+
+execute pathogen#infect()
+syntax on
+
+" Sets the color scheme that should look identically on most terminal emulators:
+set background=dark
+colorscheme vendetta
+
+" Sets the GUI options for gvim:
+set guifont=Gohu\ GohuFont\ 11
+
+""" Airline-related: """
+if !exists('g:airline_symbols')
+    let g:airline_symbols = {}
+endif
+
+" unicode symbols for the powerline glyphs:
+let g:airline_left_sep = '▶'
+let g:airline_right_sep = '◀'
+let g:airline_symbols.linenr = '␤'
+let g:airline_symbols.branch = '⎇'
+let g:airline_symbols.paste = 'ρ'
+let g:airline_symbols.whitespace = 'Ξ'
+
+set laststatus=2
+""" End of airline-related stuff """
+
+""" Ultisnips-related: """
+let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
+
+let g:UltiSnipsExpandTrigger="<c-j>"
+
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+" Makes :UltiSnipsEdit open a new split instead of switching buffers:
+let g:UltiSnipsEditSplit="vertical"
+""" End of Ultisnips-related stuff """
+
+
+""" Functions """
+"Removes all trailing whitespace
+function! TrimTrailingWhitespace()
+  let l:save = winsaveview() " Saves the current view: cursor position, folds, etc.
+  keeppatterns %s/\s\+$//e   " Trims the trailing whitespace via regexp.
+  call winrestview(l:save)   " Restores the saved view.
+endfunction
+nnoremap <F7> :call TrimTrailingWhitespace() <cr>
+
+" Switches between .hpp and .cpp files:
+function! SwitchBetweenHeaderAndSourceFiles()
+  if (expand("%:e") == "cpp")
+    find %:t:r.hpp
+  elseif (expand("%:e") == "hpp")
+    find %:t:r.cpp
+  endif
+endfunction
+
+function! OpenComplementingHeaderOrSourceFile()
+  if expand("%:e") == "cpp"
+    vsplit %:t:r.hpp
+  elseif expand("%:e") == "hpp"
+    vsplit %:t:r.cpp
+  endif
+endfunction
+""" End of Functions. """
+
+
+" Various non-bool options:
+set history=512
+set tabstop=2
+set shiftwidth=2
+set scrolloff=7
+set backspace=eol,start,indent
+set tabpagemax=50
+set colorcolumn=120
+set matchtime=7
+" Expands tabs to spaces; keeps indent levels; aligns the braces together:
+set expandtab
+set autoindent
+set smartindent
+
+set number
+set wrap
+set ruler
+set noautoread
+set noerrorbells
+set novisualbell
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Displays the tab character at all times:
+set listchars=tab:▸\
+set list
+
+" Opens new splits to the right and to the bottom instead of Vim's default:
+set splitbelow
+set splitright
+
+highlight ColorColumn ctermbg=DarkGray ctermfg=Yellow
+                      \ guibg=DarkGray   guifg=Yellow
+highlight Search cterm=underline ctermbg=NONE ctermfg=Yellow
+                 \ gui=underline   guibg=NONE   guifg=Yellow
+highlight MatchParen cterm=underline ctermbg=NONE ctermfg=Blue
+                     \ gui=underline   guibg=NONE   guifg=Blue
+" End of non-bool options.
+
+" Search options:
+"Makes search case-agnostic, unless capital letters are present in pattern string:
+set ignorecase
+set smartcase
+
+" Highlights the search results as they are typed in:
+set hlsearch
+set incsearch
+
+highlight NonText guifg=#4a4a59 ctermfg=DarkGray
+highlight SpecialKey guifg=#4a4a59 ctermfg=DarkGray
+
+
+" Key mappings:
+let mapleader="\<Space>"
+let g:mapleader="\<Space>"
+let maplocalleader="\\"
+nnoremap ; :
+set pastetoggle=<F5>
+nnoremap <Leader>w :w<CR>
+nmap <Leader><Leader> V
+map j gj
+map k gk
+nnoremap H g^
+nnoremap L g$
+vnoremap <silent> y y`]
+vnoremap <silent> p p`]
+nnoremap <silent> p p`]
+nnoremap Q <nop>
+map q: :q
+
+" Easier reindenting of a visual selection: reselects a block after indent/outdent
+vnoremap < <gv
+vnoremap > >gv
+
+" Commands for quick .vimrc editing - <leader>ev and <leader>sv
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+nnoremap <leader>sv :source $MYVIMRC<cr>
+
+" Commands for quick snippets editing - <leader>es and <leader>eS
+nnoremap <leader>es :vsp $HOME/.vim/UltiSnips/<cr>
+nnoremap <leader>eS :UltiSnipsEdit<cr>
+
+" Commands for surrounding a word with various characters
+nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
+nnoremap <leader>' viw<esc>a'<esc>hbi'<esc>lel
+nnoremap <leader>* viw<esc>a*<esc>hbi*<esc>lel
+nnoremap <leader>% viw<esc>a%<esc>hbi%<esc>lel
+nnoremap <leader>^ viw<esc>a$<esc>hbi^<esc>lel
+nnoremap <leader>( viw<esc>a)<esc>hbi(<esc>lel
+nnoremap <leader>) viw<esc>a)<esc>hbi(<esc>lel
+nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <leader>] viw<esc>a]<esc>hbi[<esc>lel
+nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
+nnoremap <leader>} viw<esc>a}<esc>hbi{<esc>lel
+
+" Switch off search highlight temporarily:
+nnoremap <silent> <Leader>/ :nohlsearch<cr>
+
+" Move a line of text using ALT+[jk]
+nmap <M-j> mz:m+<cr>`z
+nmap <M-k> mz:m-2<cr>`z
+vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+" use the autocompletion: C-N ard C-P
+map! ^P ^[a. ^[hbmmi?\<^[2h"zdt.@z^Mywmx`mP xi
+map! ^N ^[a. ^[hbmmi/\<^[2h"zdt.@z^Mywmx`mP xi
+
+" Typo-s autofix:
+iabbrev improt import
+iabbrev sattic static
+iabbrev mani main
+iabbrev vodi void
+iabbrev publci public
+iabbrev teh the
+" End of typo-s autofixes.
+
+""" C-indenting options: """
+setlocal cinoptions=N-s
+""" End of C-indenting options. """
+
+
+
+""" Autocommands: """
+augroup vimrcEx
+  autocmd!
+  " For any file type, jumps to the position edited the last time:
+  autocmd BufReadPost *
+    \ if line("'\"") > 0 && line("'\"") <= line("$") |
+    \ exe "normal g`\"" |
+    \ endif
+
+  """ Makes the text copied from Vim stay in the clipboard
+  "   even after exiting Vim: """
+  autocmd VimLeave * call system("xsel -ib", getreg('+'))
+augroup END
+
+augroup highlighting
+  autocmd!
+  highlight ExtraWhitespace ctermbg=Red ctermfg=Red guibg=Red guifg=Red
+  match ExtraWhitespace /\s\+$/
+  autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+  autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+  autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+  autocmd BufWinLeave * call clearmatches()
+augroup end
+augroup filetype_c
+  autocmd!
+  autocmd FileType c nnoremap <buffer> <localleader>c I//<space><esc>
+augroup END
+
+augroup filetype_cpp
+  autocmd!
+  autocmd FileType cpp nnoremap <buffer> <localleader>c I//<space><esc>
+
+  " Maps F3 key to trigger toggling between source (.cc) and header (.h) files
+  " and F4 key to open complementing file in a vertical split:
+  nnoremap <F3> :call SwitchBetweenHeaderAndSourceFiles()<cr>
+  inoremap <F3> <esc>:call SwitchBetweenHeaderAndSourceFiles()<cr>
+  nnoremap <F4> :call OpenComplementingHeaderOrSourceFile()<cr>
+  inoremap <F4> <esc>:call OpenComplementingHeaderOrSourceFile()<cr>
+augroup END
+
+augroup filetype_gitcommit
+  autocmd!
+  autocmd FileType gitcommit set cc=73
+  autocmd FileType gitcommit set tw=72
+  autocmd FileType gitcommit nnoremap <buffer> <localleader>c I#<space><esc>
+augroup END
+
+augroup filetype_java
+  autocmd!
+  autocmd FileType java nnoremap <buffer> <localleader>c I//<space><esc>
+augroup END
+
+augroup filetype_make
+  autocmd!
+  autocmd FileType make setlocal noexpandtab
+  autocmd FileType make nnoremap <buffer> <localleader>c I#<space><esc>
+augroup END
+
+augroup filetype_python
+  autocmd!
+  autocmd FileType python nnoremap <buffer> <localleader>c I#<space><esc>
+  autocmd FileType python inoremap # X<C-h>#
+  autocmd FileType python setlocal shiftwidth=4
+  autocmd FileType python setlocal softtabstop=4
+  autocmd FileType python setlocal expandtab
+augroup END
+
+augroup filetype_sh
+  autocmd!
+  autocmd FileType sh nnoremap <buffer> <localleader>c I#<space><esc>
+augroup END
+
+augroup filetype_tex
+  autocmd!
+  autocmd FileType tex nnoremap <buffer> <F5> :!pdflatex %<cr>
+augroup END
+
+augroup filetype_vim
+  autocmd!
+  autocmd FileType vim nnoremap <buffer> <localleader>c I"<space><esc>
+augroup END
+""" End of Autocommands. """

@@ -73,4 +73,7 @@ Install "${DOTFILES_BASEDIR}/tmux.conf" "${HOME}/.tmux.conf"
 Install "${DOTFILES_BASEDIR}/xinitrc" "${HOME}/.xinitrc"
 Install "${DOTFILES_BASEDIR}/Xresources" "${HOME}/.Xresources"
 
+printf "\n%s:\n" "4. Vim config files"
+Install "${DOTFILES_BASEDIR}/vimrc" "${HOME}/.vimrc"
+
 printf "=== Done. ===\n"
