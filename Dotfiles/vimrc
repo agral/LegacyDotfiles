@@ -73,6 +73,7 @@ endfunction
 set history=512
 set tabstop=2
 set shiftwidth=2
+set noshiftround
 set scrolloff=7
 set backspace=eol,start,indent
 set tabpagemax=50
@@ -121,6 +122,16 @@ set incsearch
 highlight NonText guifg=#4a4a59 ctermfg=DarkGray
 highlight SpecialKey guifg=#4a4a59 ctermfg=DarkGray
 
+" Infinite undo in the edited files - even after restarting Vim:
+set undofile
+set undodir=/home/simba/.vim/undodir
+" A function to delete old (90 days+) undofiles:
+function! RmUndoFiles()
+  let s:undos = split(globpath(&undodir, '*'), "\n")
+  call filter(s:undos, 'getftime(v:val) < localtime() - (60 * 60 * 24 * 90)')
+  call map(s:undos, 'delete(v:val)')
+endfunction
+nnoremap <F10> :call RmUndoFiles()<cr>
 
 " Key mappings:
 let mapleader="\<Space>"
@@ -133,7 +144,9 @@ nmap <Leader><Leader> V
 map j gj
 map k gk
 nnoremap H g^
+vnoremap H ^
 nnoremap L g$
+vnoremap L $
 vnoremap <silent> y y`]
 vnoremap <silent> p p`]
 nnoremap <silent> p p`]
@@ -174,9 +187,23 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" use the autocompletion: C-N ard C-P
+" use the autocompletion: C-N and C-P
 map! ^P ^[a. ^[hbmmi?\<^[2h"zdt.@z^Mywmx`mP xi
 map! ^N ^[a. ^[hbmmi/\<^[2h"zdt.@z^Mywmx`mP xi
+
+" Converts current word to UPCASE:
+nnoremap <C-u> bveUe
+inoremap <C-u> <esc>bveUea
+
+" Unlearning
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
 
 " Typo-s autofix:
 iabbrev improt import
@@ -191,9 +218,45 @@ iabbrev teh the
 setlocal cinoptions=N-s
 """ End of C-indenting options. """
 
+""" Override of the default starting window """
+function! Start()
+  " Creates a new unnamed buffer that will contain the contents of the splash screen:
+  enew
+
+  " Sets various option for this buffer - necessary since it should not act like a normal window:
+  setlocal
+    \ bufhidden=wipe
+    \ buftype=nofile
+    \ nobuflisted
+    \ nocursorcolumn
+    \ nocursorline
+    \ nolist
+    \ nonumber
+    \ noswapfile
+    \ norelativenumber
+
+  " Sets the message displayed on a splash screen:
+  call append('$', "Succubbus Vim")
+
+  " Sets the buffer to readonly so that it may be used as a splash screen:
+  setlocal nomodifiable nomodified
+
+  " Ensures that a new buffer is opened when the user switches to the insert mode:
+  nnoremap <buffer><silent> a :enew <bar> startinsert<cr>
+  nnoremap <buffer><silent> e :enew<cr>
+  nnoremap <buffer><silent> i :enew <bar> startinsert<cr>
+  nnoremap <buffer><silent> o :enew <bar> startinsert<cr>
+endfun
 
 
 """ Autocommands: """
+"augroup vimSplashScreen
+"  autocmd!
+"  if argc() == 0
+"    "autocmd VimEnter * call Start()
+"  endif
+"augroup END
+
 augroup vimrcEx
   autocmd!
   " For any file type, jumps to the position edited the last time:
@@ -216,9 +279,16 @@ augroup highlighting
   autocmd InsertLeave * match ExtraWhitespace /\s\+$/
   autocmd BufWinLeave * call clearmatches()
 augroup end
+
 augroup filetype_c
   autocmd!
   autocmd FileType c nnoremap <buffer> <localleader>c I//<space><esc>
+augroup END
+
+augroup filetype_conky
+  autocmd!
+  " Makes vim treat and highlight any *.conky file as if it were Lua code (since it mostly is!):
+  autocmd BufNewFile,BufRead *.conky set filetype=lua
 augroup END
 
 augroup filetype_cpp
@@ -263,6 +333,11 @@ augroup END
 augroup filetype_sh
   autocmd!
   autocmd FileType sh nnoremap <buffer> <localleader>c I#<space><esc>
+augroup END
+
+augroup filetype_shrc
+  autocmd!
+  autocmd BufEnter *.shrc :setlocal filetype=sh
 augroup END
 
 augroup filetype_tex
