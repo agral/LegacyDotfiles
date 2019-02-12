@@ -7,6 +7,9 @@ function Zangband
   "$(cd "${HOME}/.local/ZPlusAngband/" && ./zangband)"
 }
 
+export DIR_BUILDS="${HOME}/Builds"
+alias Builds="cd ${DIR_BUILDS}"
+
 export DIR_REPOS="${HOME}/Repos"
 alias Repos="cd ${DIR_REPOS}"
 
@@ -18,3 +21,30 @@ alias Source="cd ${DIR_SOURCE}"
 
 export DIR_EULER="${DIR_REPOS_AGRAL}/CompetitiveProgramming/HackerRank/ProjectEuler"
 alias Euler="cd ${DIR_EULER}"
+
+export DIR_AOC="${DIR_REPOS_AGRAL}/CompetitiveProgramming/AoC2018"
+alias AoC="cd ${DIR_AOC}"
+
+export DIR_STARMONGER="${DIR_SOURCE}/Cpp-SDL/Starmonger4"
+alias Starmonger="cd ${DIR_STARMONGER}"
+
+export DIR_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3/"
+alias Connect3="cd ${DIR_CONNECT3}"
+
+# HuuugeCasino / Claw:
+export CLAW_ROOT="/home/simba/Repos/huuuge/claw/"
+alias Claw="cd ${CLAW_ROOT}"
+
+export DIR_MAGICAS_OMEGA="${DIR_REPOS}/huuuge/MAGICAS_omega/"
+alias Omega="cd ${DIR_MAGICAS_OMEGA}"
+
+export DIR_EMSDK_ROOT="${DIR_BUILDS}/emsdk/"
+EmsdkSetup()
+{
+  source ${DIR_EMSDK_ROOT}/emsdk_env.sh && export PROMPT_FLAGS="${PROMPT_FLAGS}E"
+}
+
+alias TrumpWall="mplayer /home/simba/Audio/Sound/TrumpWall.mp3" >/dev/null 2>&1
+
+# Forces the Dia to start in single-window mode (it starts down with two separate windows otherwise):
+alias dia="dia --integrated"

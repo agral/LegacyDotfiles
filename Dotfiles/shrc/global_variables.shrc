@@ -26,7 +26,5 @@ export LESS_TERMCAP_us=$'\E[01;32m'
 export VISUAL=vim
 export EDITOR="${VISUAL}"
 
-
 # Uses Qt5 whenever possible:
 export QT_SELECT=5
-

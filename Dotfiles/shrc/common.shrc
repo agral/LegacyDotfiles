@@ -43,7 +43,7 @@ fi
 # Sudoes the passed command (by default sudoes the last command):
 function s {
   if [ "${#}" -eq 0 ]; then
-    sudo "$(history -p '!!')"
+    sudo "${SHELL}" -c "$(history -p '!!')"
   else
     sudo "${@}"
   fi
@@ -130,4 +130,12 @@ function Weather {
     TOWN="${@}"
   fi
   curl "wttr.in/${TOWN}"
+}
+
+# Queries the cht.sh (a cheatsheet of many Unix commands):
+function Cheat() {
+  while [ "${#}" -gt 0 ]; do
+    curl "cht.sh/${1}"
+    shift
+  done
 }

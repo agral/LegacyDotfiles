@@ -62,7 +62,7 @@ function make_bash_prompt()
   if [ "${gitbr}" ]; then
     printf -v prompt_gitbr_part " on ${colorYEM}%s${colorNONE}" "${gitbr}"
   fi
-  PS1="${colorNONE}[${exitcolor}$EXITCODE${colorNONE}] [${colorM}\t${colorNONE}] ${usercolor}\u${colorNONE} in ${colorB}\w${colorNONE}${prompt_gitbr_part}\n${usercolor}\$${colorNONE} "
+  PS1="${colorNONE}[${exitcolor}$EXITCODE${colorNONE}] [${colorM}\t${colorNONE}] ${usercolor}\u${colorNONE} in ${colorB}\w${colorNONE}${prompt_gitbr_part} ${PROMPT_FLAGS}\n${usercolor}\$${colorNONE} "
 }
 
 PROMPT_COMMAND=make_bash_prompt
@@ -74,15 +74,15 @@ fi
 
 # Sources the common shell aliases:
 if [ -f ~/.config/shrc/common.shrc ]; then
-    . ~/.config/shrc/common.shrc
+  . "${HOME}/.config/shrc/common.shrc"
 fi
 
 # Sources the aliases for easier control of the package manager:
 if [ -f ~/.config/shrc/package_manager.shrc ]; then
-  . ~/.config/shrc/package_manager.shrc
+  . "${HOME}/.config/shrc/package_manager.shrc"
 fi
 
 # Sources the machine-specific aliases:
 if [ -f ~/.config/shrc/machine_specific.shrc ]; then
-  . ~/.config/shrc/machine_specific.shrc
+  . "${HOME}/.config/shrc/machine_specific.shrc"
 fi
