@@ -584,6 +584,16 @@
   </keybind>
   <!-- End of the keychains for invoking the applications. -->
 
+  <!-- Keychains for interacting with ncmpcpp/mpd/music-conky -->
+  <keybind key="W-n">
+    <keybind key="a">
+      <action name="Execute">
+        <command>ApproveAlbumCover --yes</command>
+      </action>
+    </keybind>
+  </keybind>
+  <!-- End of the keychains for ncmpcpp/mpd/music-conky -->
+
   <!-- Keychain invoking the file explorer (spacefm): -->
   <keybind key="W-e">
     <keybind key="S-a">

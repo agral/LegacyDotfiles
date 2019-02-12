@@ -15,17 +15,13 @@ tint2 &
 # Recreates directory structure in the ramdisk:
 (~/Source/Scripts/MachineSpecific/SetupTmpfs) &
 
-# Starts the MPD:
+# Starts all the MPDs:
 (mpd ~/.config/mpd/mpd.conf) &
+(mpd ~/.config/mpd/mpd_incoming/mpd_incoming.conf) &
 
 ##### ----- After 1 second: ------ ######
 # Starts the NetworkManager's applet:
 (sleep 1s && nm-applet) &
-
-# Starts the drop-down terminals - tilda (3 instances)
-(sleep 1s && tilda) &
-(sleep 1s && tilda) &
-(sleep 1s && tilda) &
 
 # Starts the unicode rxvt daemon:
 (sleep 1s && urxvtd) &
@@ -34,12 +30,23 @@ tint2 &
 # Starts the compositing manager:
 (sleep 2s && compton) &
 
+# Starts the drop-down terminals - tilda (3 instances)
+# Note: Tilda dislikes having multiple instances launched at the same moment,
+# so there should be at least 1s delay between each consecutive invocation of 'tilda' command.
+(sleep 2s && tilda) &
+
 ##### ----- After 3 seconds: ----- ######
 # Starts all the conkies:
-(sleep 3s && conky -c ~/.config/conky/solarized_conky.conf) &
 (sleep 3s && conky -c ~/.config/conky/Experimental/info.conky) &
 (sleep 3s && conky -c ~/Source/Conky/Clock/clock.conky) &
+(sleep 3s && conky -c ~/Source/Conky/Music/music.conky) &
+(sleep 3s && SwitchConky --force korean ) &
+(sleep 3s && tilda) &
 
 ##### ----- After 4 seconds: ----- ######
 # Starts the Dunst notification daemon:
+(sleep 4s && tilda) &
 (sleep 4s && dunst) &
+
+##### ----- After 5 seconds: ----- ######
+(sleep 5s && spacefm -d) &
