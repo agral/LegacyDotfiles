@@ -26,8 +26,16 @@ let g:airline_symbols.paste = 'ρ'
 let g:airline_symbols.whitespace = 'Ξ'
 
 set laststatus=2
-""" End of airline-related stuff """
 
+""" Ctrlp.vim-related: """
+let g:ctrlp_map = "<c-p>"
+let g:ctrlp_cmd = "CtrlP"
+let g:ctrlp_working_path_mode = "ra"
+let g:ctrlp_custom_ignore = {
+  \ 'dir': '\v[\/].(git|hg|svn)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ }
+let g:ctrlp_user_command = 'find %s -type f'
 """ Ultisnips-related: """
 let g:UltiSnipsSnippetsDir="~/.vim/UltiSnips"
 
@@ -66,24 +74,34 @@ function! OpenComplementingHeaderOrSourceFile()
     vsplit %:t:r.cpp
   endif
 endfunction
+
+function! RunDeepestMakefile(...)
+  let deepestMakefileRoot = substitute(system('sh "${HOME}/.vim/FindMakefile.sh"'), "\n*$", "", "")
+  if deepestMakefileRoot ==# "/"
+    echo "No Makefile found in current file's path"
+  else
+    let deepestMakefilePath = deepestMakefileRoot . "/Makefile"
+    if filereadable(deepestMakefilePath)
+      let &makeprg="make -C " . deepestMakefileRoot . " " . join(a:000)
+      make
+    else
+      echo "Error: Makefile found at " . deepestMakefilePath . ", but it is inaccessible."
+    endif
+  endif
+endfunction
+
+" A function to delete old (90 days+) undofiles:
+function! RmUndoFiles()
+  let s:undos = split(globpath(&undodir, '*'), "\n")
+  call filter(s:undos, 'getftime(v:val) < localtime() - (60 * 60 * 24 * 90)')
+  call map(s:undos, 'delete(v:val)')
+endfunction
 """ End of Functions. """
 
-
-" Various non-bool options:
-set history=512
-set tabstop=2
-set shiftwidth=2
-set noshiftround
-set scrolloff=7
-set backspace=eol,start,indent
-set tabpagemax=50
-set colorcolumn=120
-set matchtime=7
 " Expands tabs to spaces; keeps indent levels; aligns the braces together:
 set expandtab
 set autoindent
 set smartindent
-
 set number
 set wrap
 set ruler
@@ -93,6 +111,33 @@ set novisualbell
 set nobackup
 set nowritebackup
 set noswapfile
+set noshowmatch
+
+" No unnecessary redraws in macros:
+set lazyredraw
+
+" Various non-bool options:
+set history=512
+set tabstop=2
+set shiftwidth=2
+set noshiftround
+set scrolloff=7
+
+" Allows backspacing over everything in insert mode:
+set backspace=eol,start,indent
+
+set tabpagemax=50
+set colorcolumn=120
+set matchtime=2  " Shows matching brackets for 0.2 seconds. No-effect until `match` is set.
+
+" Adds triangle braces to the matched pairs' list. Useful for (X)HTML editing.
+set matchpairs+=<:>
+
+" Sets file mode to unix - dos files will be converted to unix mode:
+set fileformat=unix
+
+" Sets the format options so that the line comment will not be extended to the next line:
+set formatoptions-=or
 
 " Displays the tab character at all times:
 set listchars=tab:▸\
@@ -140,7 +185,7 @@ let maplocalleader="\\"
 nnoremap ; :
 set pastetoggle=<F5>
 nnoremap <Leader>w :w<CR>
-nmap <Leader><Leader> V
+nnoremap <Leader><Leader> V
 map j gj
 map k gk
 nnoremap H g^
@@ -157,6 +202,11 @@ map q: :q
 vnoremap < <gv
 vnoremap > >gv
 
+" <F-n> commands' remappings:
+nnoremap <F7> :call TrimTrailingWhitespace()<cr>
+nnoremap <F10> :call RmUndoFiles()<cr>
+
+""" Leader-commands """
 " Commands for quick .vimrc editing - <leader>ev and <leader>sv
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
@@ -164,6 +214,10 @@ nnoremap <leader>sv :source $MYVIMRC<cr>
 " Commands for quick snippets editing - <leader>es and <leader>eS
 nnoremap <leader>es :vsp $HOME/.vim/UltiSnips/<cr>
 nnoremap <leader>eS :UltiSnipsEdit<cr>
+
+" Commands for invoking make (make-compile and make-run):
+nnoremap <leader>mc :call RunDeepestMakefile()<cr>
+nnoremap <leader>mr :call RunDeepestMakefile("run")<cr>
 
 " Commands for surrounding a word with various characters
 nnoremap <leader>" viw<esc>a"<esc>hbi"<esc>lel
@@ -178,8 +232,10 @@ nnoremap <leader>] viw<esc>a]<esc>hbi[<esc>lel
 nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
 nnoremap <leader>} viw<esc>a}<esc>hbi{<esc>lel
 
+nnoremap <leader>p :CtrlPTag<cr>
+
 " Switch off search highlight temporarily:
-nnoremap <silent> <Leader>/ :nohlsearch<cr>
+nnoremap <silent> <leader>/ :nohlsearch<cr>
 
 " Move a line of text using ALT+[jk]
 nmap <M-j> mz:m+<cr>`z
@@ -187,13 +243,12 @@ nmap <M-k> mz:m-2<cr>`z
 vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
-" use the autocompletion: C-N and C-P
-map! ^P ^[a. ^[hbmmi?\<^[2h"zdt.@z^Mywmx`mP xi
-map! ^N ^[a. ^[hbmmi/\<^[2h"zdt.@z^Mywmx`mP xi
-
 " Converts current word to UPCASE:
 nnoremap <C-u> bveUe
 inoremap <C-u> <esc>bveUea
+
+" Checks the current folder for tags file, keeps going up one directory up until the root folder:
+set tags=tags;/
 
 " Unlearning
 nnoremap <left> <nop>
@@ -257,13 +312,16 @@ endfun
 "  endif
 "augroup END
 
-augroup vimrcEx
+augroup anyfile
   autocmd!
   " For any file type, jumps to the position edited the last time:
   autocmd BufReadPost *
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \ exe "normal g`\"" |
     \ endif
+
+  " automatically cd's to directory of current file:
+  autocmd BufEnter * lcd %:p:h
 
   """ Makes the text copied from Vim stay in the clipboard
   "   even after exiting Vim: """
@@ -328,6 +386,8 @@ augroup filetype_python
   autocmd FileType python setlocal shiftwidth=4
   autocmd FileType python setlocal softtabstop=4
   autocmd FileType python setlocal expandtab
+  autocmd FileType python setlocal colorcolumn=80
+  autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
 augroup END
 
 augroup filetype_sh
