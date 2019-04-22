@@ -25,11 +25,17 @@ alias Euler="cd ${DIR_EULER}"
 export DIR_AOC="${DIR_REPOS_AGRAL}/CompetitiveProgramming/AoC2018"
 alias AoC="cd ${DIR_AOC}"
 
+export DIR_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3/"
+alias Connect3="cd ${DIR_CONNECT3}"
+
+export DIR_SOURCE="${HOME}/Source"
+alias Source="cd ${DIR_SOURCE}"
+
 export DIR_STARMONGER="${DIR_SOURCE}/Cpp-SDL/Starmonger4"
 alias Starmonger="cd ${DIR_STARMONGER}"
 
-export DIR_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3/"
-alias Connect3="cd ${DIR_CONNECT3}"
+export DIR_TOOLS="${HOME}/Tools"
+alias Tools="cd ${DIR_TOOLS}"
 
 # HuuugeCasino / Claw:
 export CLAW_ROOT="/home/simba/Repos/huuuge/claw/"
