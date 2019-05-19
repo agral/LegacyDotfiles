@@ -310,6 +310,7 @@
     </action>
   </keybind>
 
+  <!-- XF86Audio{Prev,Play,Next} : toggles state of the main mpd instance (port 6600). -->
   <keybind key="XF86AudioPrev">
     <action name="Execute">
       <command>mpc prev</command>
@@ -323,6 +324,23 @@
   <keybind key="XF86AudioNext">
     <action name="Execute">
       <command>mpc next</command>
+    </action>
+  </keybind>
+
+  <!-- Shift+XF86Audio{Prev,Play,Next} : toggles state of the "podcasts" mpd instance (port 6602). -->
+  <keybind key="S-XF86AudioPrev">
+    <action name="Execute">
+      <command>mpc --port=6602 prev</command>
+    </action>
+  </keybind>
+  <keybind key="S-XF86AudioPlay">
+    <action name="Execute">
+      <command>mpc --port=6602 toggle</command>
+    </action>
+  </keybind>
+  <keybind key="S-XF86AudioNext">
+    <action name="Execute">
+      <command>mpc --port=6602 next</command>
     </action>
   </keybind>
 
@@ -426,19 +444,19 @@
   <keybind key="W-a">
     <keybind key="a">
       <action name="Execute">
-        <command>arandr</command>
+        <command>anki</command>
       </action>
       <action name="Execute">
-        <command>notify-send -t 1500 "Arandr" "Launching"</command>
+        <command>notify-send -t 1000 "Anki" "Launching"</command>
       </action>
     </keybind>
 
     <keybind key="S-a">
       <action name="Execute">
-        <command>anki</command>
+        <command>arandr</command>
       </action>
       <action name="Execute">
-        <command>notify-send -t 1000 "Anki" "Launching"</command>
+        <command>notify-send -t 1500 "Arandr" "Launching"</command>
       </action>
     </keybind>
 
