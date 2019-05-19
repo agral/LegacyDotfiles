@@ -10,7 +10,7 @@ set background=dark
 colorscheme vendetta
 
 " Sets the GUI options for gvim:
-set guifont=Gohu\ GohuFont\ 11
+set guifont=GohuFont\ 8
 
 """ Airline-related: """
 if !exists('g:airline_symbols')
@@ -147,6 +147,8 @@ set list
 set splitbelow
 set splitright
 
+set dictionary=/home/simba/Tools/Wordlists/corncob_english_lowercase.txt
+
 highlight ColorColumn ctermbg=DarkGray ctermfg=Yellow
                       \ guibg=DarkGray   guifg=Yellow
 highlight Search cterm=underline ctermbg=NONE ctermfg=Yellow
@@ -231,6 +233,8 @@ nnoremap <leader>[ viw<esc>a]<esc>hbi[<esc>lel
 nnoremap <leader>] viw<esc>a]<esc>hbi[<esc>lel
 nnoremap <leader>{ viw<esc>a}<esc>hbi{<esc>lel
 nnoremap <leader>} viw<esc>a}<esc>hbi{<esc>lel
+nnoremap <leader>< viw<esc>a><esc>hbi<<esc>lel
+nnoremap <leader>> viw<esc>a><esc>hbi<<esc>lel
 
 nnoremap <leader>p :CtrlPTag<cr>
 
