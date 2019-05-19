@@ -28,3 +28,6 @@ export EDITOR="${VISUAL}"
 
 # Uses Qt5 whenever possible:
 export QT_SELECT=5
+
+# Sets the Stardict's data directory to
+export STARDICT_DATA_DIR="${HOME}/Tools/Stardict/"
