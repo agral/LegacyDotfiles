@@ -1,0 +1,86 @@
+ncmpcpp_directory = ~/.ncmpcpp
+mpd_host = localhost
+mpd_port = 6602
+mpd_music_dir = ~/Audio/Music/Podcasts (STORAGE)/
+
+##### there is no music visualizer #####
+#visualizer_fifo_path = /tmp/mpd.fifo
+#visualizer_output_name = mpd_fifo
+#visualizer_in_stereo = yes
+#visualizer_sample_multiplier = 1
+#visualizer_sync_interval = 30
+
+## Available values: spectrum, wave, wave_filled, ellipse.
+#visualizer_type = spectrum
+#visualizer_look = ●▮
+#visualizer_color = blue, cyan, green, yellow, magenta, red
+#
+## Alternative subset of 256 colors for terminals that support it.
+##
+visualizer_color = 41, 83, 119, 155, 185, 215, 209, 203, 197, 161
+#
+playlist_disable_highlight_delay = 1
+message_delay_time = 1
+
+song_list_format = {$4%a$9 - }{$4%t$9}|{$8%f$9}$R{$6[%g]$9 }{$5(%l)$9}
+song_library_format = {%n - }{%t}|{%f}
+alternative_header_first_line_format = $b$1$aDRRRRRG$/a $8{%t}|{%f}$9 $1$aFRRRRRA$/a$9$/b
+alternative_header_second_line_format = {{$4$b%a$/b$9}{ - $7%b$9}{ ($4%y$9)}{ $6[%g]$9}}|{%D}
+now_playing_prefix = $b$2>$9
+now_playing_suffix = $/b
+
+browser_playlist_prefix = "$b$3playlist:$9$/b "
+#selected_item_prefix = $6
+#selected_item_suffix = $9
+#modified_item_prefix = $3> $9
+
+browser_sort_mode = name
+browser_sort_format = {%a - }{%t}|{%f} {(%l)}
+song_columns_list_format = (2f)[white]{: } (20)[]{a} (6f)[green]{NE} (30)[white]{t|f:Title} (30)[cyan]{b} (20f)[magenta]{g} (7f)[blue]{l}
+
+playlist_display_mode = columns
+browser_display_mode = classic
+search_engine_display_mode = classic
+playlist_editor_display_mode = classic
+discard_colors_if_item_is_selected = yes
+incremental_seeking = yes
+seek_time = 1
+volume_change_step = 1
+autocenter_mode = "yes"
+centered_cursor = "yes"
+progressbar_look = ═>
+progressbar_boldness = yes
+default_place_to_search_in = database
+user_interface = alternative
+
+## Available values: artist, album_artist, date, genre, composer, performer.
+media_library_primary_tag = artist
+
+fetch_lyrics_for_current_song_in_background = no
+store_lyrics_in_song_dir = no
+generate_win32_compatible_filenames = yes
+allow_for_physical_item_deletion = yes
+startup_screen = playlist
+#startup_slave_screen = brow
+locked_screen_width_part = 50
+clock_display_seconds = no
+display_volume_level = yes
+display_bitrate = yes
+display_remaining_time = no
+regular_expressions = perl
+ignore_leading_the = yes
+mouse_support = no
+mouse_list_scroll_whole_page = no
+empty_tag_marker = <empty>
+tags_separator = " | "
+enable_window_title = yes
+
+search_engine_default_search_mode = 1
+external_editor = vim
+use_console_editor = yes
+
+colors_enabled = yes
+empty_tag_color = magenta
+volume_color = 242
+state_line_color = 242
+state_flags_color = 245
