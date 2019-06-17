@@ -18,6 +18,7 @@ tint2 &
 # Starts all the MPDs:
 (mpd ~/.config/mpd/mpd.conf) &
 (mpd ~/.config/mpd/mpd_incoming/mpd_incoming.conf) &
+(mpd ~/.config/mpd/mpd_podcast/mpd_podcast.conf) &
 
 ##### ----- After 1 second: ------ ######
 # Starts the NetworkManager's applet:
