@@ -127,8 +127,8 @@ browser_playlist_prefix = "$b$3playlist:$9$/b "
 ## in combination with a sort format to specify a custom sorting format.
 ## Available values for browser_sort_mode are "name", "mtime", "format"
 ## and "noop".
-browser_sort_mode = name
-browser_sort_format = {%a - }{%t}|{%f} {(%l)}
+browser_sort_mode = format
+browser_sort_format = {%y}{%n}{%a - }{%t}|{%f} {(%l)}
 #
 ##### columns settings #####
 ## syntax of song columns list format is "column column etc."
