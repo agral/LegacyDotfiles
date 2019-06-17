@@ -31,3 +31,6 @@ export QT_SELECT=5
 
 # Sets the Stardict's data directory to
 export STARDICT_DATA_DIR="${HOME}/Tools/Stardict/"
+
+# Sets tmux's temp directory to /tmp in order to get consistent paths in session descriptor files:
+export TMUX_TMPDIR="/tmp"
