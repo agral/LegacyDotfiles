@@ -69,6 +69,20 @@ Install "${SHRC_SRCDIR}/common.shrc" "${SHRC_TARDIR}/common.shrc"
 Install "${SHRC_SRCDIR}/package_manager.shrc" "${SHRC_TARDIR}/package_manager.shrc"
 Install "${SHRC_SRCDIR}/machine_specific.shrc" "${SHRC_TARDIR}/machine_specific.shrc"
 
+counter=$((counter + 1))
+printf "\n%d. %s:\n" "${counter}" "Custom shell scripts"
+SCRIPTS_SRCDIR="${DOTFILES_BASEDIR}/bin"
+SCRIPTS_TARDIR="${HOME}/.local/bin"
+
+# Enables nullglob, which makes the for loop ignore empty directory.
+# Without nullglob enabled the for loop executes once with filename=* iff source directory is empty.
+shopt -s nullglob
+for file in "${SCRIPTS_SRCDIR}"/* ; do
+  script_name="$(basename "${file}")"
+  Install "${SCRIPTS_SRCDIR}/${script_name}" "${SCRIPTS_TARDIR}/${script_name}"
+done
+shopt -u nullglob # restores nullglob back to its default (unset) state
+
 counter=$(($counter + 1))
 printf "\n%d. %s:\n" "${counter}" "Openbox config files"
 OPENBOX_SRCDIR="${DOTFILES_BASEDIR}/openbox"
