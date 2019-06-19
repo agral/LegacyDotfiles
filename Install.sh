@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+# Name:          Install
+# Description:   Installs the dotfiles intelligently by creating the parent directory structure
+#                and allowing for manual application of individual changes in case of collision.
+# Options:       None
+# Created on:    11-10-2017
+# Last modified: 19-06-2019
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       CC0
+
+
 SCRIPT_BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DOTFILES_BASEDIR="${SCRIPT_BASEDIR}/Dotfiles"
 MANUAL_MERGE_TOOL="meld"
@@ -7,7 +17,6 @@ MANUAL_MERGE_TOOL="meld"
 # Prints out the diff status of two files.
 # Usage: Install source target
 # Params: source - a file from this repository, target - where to install it.
-
 function Install
 {
   if [ "${#}" -ne 2 ]; then
@@ -49,7 +58,8 @@ function Install
   fi
 }
 
-printf "%s:\n" "1. Shell-related dotfiles"
+counter=1
+printf "%d. %s:\n" "${counter}" "Shell-related dotfiles"
 SHRC_SRCDIR="${DOTFILES_BASEDIR}/shrc"
 SHRC_TARDIR="${HOME}/.config/shrc"
 Install "${SHRC_SRCDIR}/bash_profile" "${HOME}/.bash_profile"
@@ -59,7 +69,8 @@ Install "${SHRC_SRCDIR}/common.shrc" "${SHRC_TARDIR}/common.shrc"
 Install "${SHRC_SRCDIR}/package_manager.shrc" "${SHRC_TARDIR}/package_manager.shrc"
 Install "${SHRC_SRCDIR}/machine_specific.shrc" "${SHRC_TARDIR}/machine_specific.shrc"
 
-printf "\n%s:\n" "2. Openbox config files"
+counter=$(($counter + 1))
+printf "\n%d. %s:\n" "${counter}" "Openbox config files"
 OPENBOX_SRCDIR="${DOTFILES_BASEDIR}/openbox"
 OPENBOX_TARDIR="${HOME}/.config/openbox"
 Install "${OPENBOX_SRCDIR}/autostart" "${OPENBOX_TARDIR}/autostart"
@@ -67,7 +78,8 @@ Install "${OPENBOX_SRCDIR}/environment" "${OPENBOX_TARDIR}/environment"
 Install "${OPENBOX_SRCDIR}/menu.xml" "${OPENBOX_TARDIR}/menu.xml"
 Install "${OPENBOX_SRCDIR}/rc.xml" "${OPENBOX_TARDIR}/rc.xml"
 
-printf "\n%s:\n" "3. mpd/ncmpcpp config files"
+counter=$(($counter + 1))
+printf "\n%d. %s:\n" "${counter}" "mpd/ncmpcpp config files"
 MPD_SRCDIR="${DOTFILES_BASEDIR}/mpd"
 MPD_TARDIR="${HOME}/.config/mpd"
 Install "${MPD_SRCDIR}/mpd.conf" "${MPD_TARDIR}/mpd.conf"
@@ -79,13 +91,15 @@ Install "${NCMPCPP_SRCDIR}/config" "${NCMPCPP_TARDIR}/config"
 Install "${NCMPCPP_SRCDIR}/incoming_config" "${NCMPCPP_TARDIR}/incoming_config"
 Install "${NCMPCPP_SRCDIR}/podcast_config" "${NCMPCPP_TARDIR}/podcast_config"
 
-printf "\n%s:\n" "4. Other config files"
+counter=$(($counter + 1))
+printf "\n%d. %s:\n" "${counter}" "Other config files"
 Install "${DOTFILES_BASEDIR}/gitconfig" "${HOME}/.gitconfig"
 Install "${DOTFILES_BASEDIR}/tmux.conf" "${HOME}/.tmux.conf"
 Install "${DOTFILES_BASEDIR}/xinitrc" "${HOME}/.xinitrc"
 Install "${DOTFILES_BASEDIR}/Xresources" "${HOME}/.Xresources"
 
-printf "\n%s:\n" "5. Vim config files"
+counter="$(($counter + 1))"
+printf "\n%d. %s:\n" "${counter}" "Vim config files"
 Install "${DOTFILES_BASEDIR}/vimrc" "${HOME}/.vimrc"
 
 printf "=== Done. ===\n"
