@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+
+# Name:          GithubOriginPushHttpsToSsh
+# Description:   Switches the push origin of a github repository
+#                from HTTPS to SSH.
+# Options:       None
+# Created on:    13-02-2018
+# Last modified: 20-06-2019
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       MIT
+
+PUSH_ORIGIN="$(git remote -v | grep "^origin.*(push)$")"
+if [ -z "${PUSH_ORIGIN}" ]; then
+  >&2 printf "Error: %s\n" "Could not find an origin remote."
+  exit 1
+fi
+
+PUSH_ORIGIN_HTTPS_URL="$(sed --regexp-extended --silent \
+    --expression='s#.*(https://[^[:space:]]*).*#\1#p' <<< "${PUSH_ORIGIN}")"
+if [ -z "${PUSH_ORIGIN_HTTPS_URL}" ]; then
+  >&2 printf "Error: %s\n" \
+    "The push-origin remote does not seem to use HTTPS protocol."
+  >&2 printf "[matched entry: %s]\n" "${PUSH_ORIGIN}"
+  exit 1
+fi
+
+USERNAME_AND_REPOSITORY_EXPRESSION='https://github.com/([^/]*)/(.*).git'
+
+GITHUB_USERNAME="$(sed --regexp-extended --silent \
+    --expression="s#${USERNAME_AND_REPOSITORY_EXPRESSION}#\1#p" \
+    <<< "${PUSH_ORIGIN_HTTPS_URL}")"
+if [ -z "${GITHUB_USERNAME}" ]; then
+  >&2 printf "Error: %s\n" "Could not auto-detect github username."
+  exit 1
+fi
+
+GITHUB_REPOSITORY_NAME="$(sed --regexp-extended --silent \
+    --expression="s#${USERNAME_AND_REPOSITORY_EXPRESSION}#\2#p" \
+    <<< "${PUSH_ORIGIN_HTTPS_URL}")"
+if [ -z "${GITHUB_REPOSITORY_NAME}" ]; then
+  >&2 printf "Error: %s\n" "Could not auto-detect the repository name."
+  exit 1
+fi
+
+PUSH_ORIGIN_SSH_URL="\
+git@github.com:${GITHUB_USERNAME}/${GITHUB_REPOSITORY_NAME}.git"
+
+printf "%s:\n    %s\n%s:\n    %s\n" \
+    "Switching origin from current URL (HTTPS)" \
+    "${PUSH_ORIGIN_HTTPS_URL}" \
+    "to the following URL (SSH)" \
+    "${PUSH_ORIGIN_SSH_URL}"
+
+git remote set-url --push origin "${PUSH_ORIGIN_SSH_URL}"
+if [ "${?}" -eq 0 ]; then
+  printf "%s\n" "Successfully switched."
+else
+  >&2 printf "%s\n" "Failed."
+fi
