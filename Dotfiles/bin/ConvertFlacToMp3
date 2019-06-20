@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+
+# Name:          ConvertFlacToMp3
+# Description:   Converts a list of flac files to 320k mp3s, preserving the tags.
+# Options:       (whitespace-separated list of individual flac files or directories)
+# Created on:    10-06-2019
+# Last modified: 10-06-2019
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       MIT
+
+if [ ${#} -eq 0 ]; then
+  >&2 printf "Error: Expected at least one argument (filename to convert).\nAborting.\n"
+  exit 1
+fi
+
+function convert_single_flac_to_mp3() {
+  infile="${1}"
+  infile_ext="${infile##*.}"
+  if [ "flac" != "${infile_ext}" ]; then
+    >&2 printf "Warning: input file \"%s\" does not have .flac extension. Ignoring.\n" "${infile}"
+    return 1
+  fi
+
+  basename="${infile%.*}"
+  outfile="${basename}.mp3"
+
+  ffmpeg -i "${infile}" -ab 320k -map_metadata 0 -id3v2_version 3 "${outfile}"
+  if [ ${?} -eq 0 ]; then
+    printf "Successfully processed file \"%s\".\n" "${infile}"
+  else
+    >&2 printf "Warning: failed to process file \"%s\".\n" "${infile}"
+  fi
+}
+# Exports this function so that it may be used in find's exec block:
+export -f convert_single_flac_to_mp3
+
+function convert_entire_dir_of_flacs() {
+  printf "Converting directory \"%s\"...\n" "${1}"
+  find "${1}" -name "*.flac" -type f -exec bash -c 'convert_single_flac_to_mp3 "$@"' bash {} \;
+  printf "Finished converting directory \"%s\".\n\n" "${1}"
+}
+
+while [ "${#}" -gt 0 ]; do
+  if [ -f "${1}" ]; then
+    convert_single_flac_to_mp3 "${1}"
+  elif [ -d "${1}" ]; then
+    convert_entire_dir_of_flacs "${1}"
+  fi
+  shift
+done
