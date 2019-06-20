@@ -1,0 +1,58 @@
+#!/usr/bin/env bash
+
+# Name:          I3Lock
+# Description:   Locks the session utilizing i3lock with a nice blur/pixel-out visual effect.
+# Options:       None
+# Created on:    24-04-2018
+# Last modified: 19-06-2019
+# Author:        Adam Graliński (adam@gralin.ski)
+# Original idea: https://github.com/savoca/dotfiles/blob/gray/home/.bin/scripts/lock.sh
+# License:       MIT
+
+SCREENSHOTS_ROOT="/tmp/I3Lock/"
+SCREENSHOT_PATH="${SCREENSHOTS_ROOT}/master.png"
+DEFAULT_OVERLAY_IMAGE_PATH="${HOME}/Tools/ToolsPictures/I3Lock.png"
+
+clClear="00000000"
+clBlue="268bd2ff"
+clRed="dc322fff"
+clWhite="eee8d5ff"
+
+mkdir -p "${SCREENSHOTS_ROOT}"
+scrot "${SCREENSHOT_PATH}"
+
+# Applies pixellation effect:
+convert "${SCREENSHOT_PATH}" -scale 10% -scale 1000% "${SCREENSHOT_PATH}"
+
+# Adds a black shroud:
+convert "${SCREENSHOT_PATH}" -fill black -colorize 30% "${SCREENSHOT_PATH}"
+
+# Adds a lock icon:
+OVERLAY_IMAGE_PATH="${DEFAULT_OVERLAY_IMAGE_PATH}"
+if [ ${#} -ge 1 ] && [ -f "${1}" ]; then
+  OVERLAY_IMAGE_PATH="${1}"
+fi
+convert "${SCREENSHOT_PATH}" "${OVERLAY_IMAGE_PATH}" \
+    -gravity center -composite -matte "${SCREENSHOT_PATH}"
+
+i3lock --image="${SCREENSHOT_PATH}" \
+    --indicator \
+    --ignore-empty-password \
+    --radius 60 \
+    --ring-width 6 \
+    --ringcolor="${clClear}"
+    --insidecolor="${clClear}" \
+    --ringvercolor="${clBlue}" \
+    --insidevercolor="${clClear}" \
+    --ringwrongcolor="${clRed}" \
+    --insidewrongcolor="${clClear}" \
+    --separatorcolor="${clClear}" \
+    --linecolor="${clClear}" \
+    --keyhlcolor="${}" \
+    --bshlcolor="${}" \
+    --veriftext="" \
+    --wrongtext="" \
+    --noinputtext="" \
+    --indpos="100:720"
+
+rm "${SCREENSHOT_PATH}"
