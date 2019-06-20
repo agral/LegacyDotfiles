@@ -1,0 +1,111 @@
+#!/usr/bin/env bash
+
+# Name:          BackupData
+# Description:   Backs up the data to the TOSHIBA_EXT vault
+# Options:       None
+# Created on:    29-01-2019
+# Last modified: 20-06-2019
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       CC0
+
+LAST_BACKUP_FILE="/tmp/last_backup"
+DEFAULT_TOSHIBAEXT_LOCATION="/media/TOSHIBA EXT"
+VAULT_ROOT="${DEFAULT_TOSHIBAEXT_LOCATION}"
+VAULT_NAME="Backup"
+
+colorNONE="\033[0m"       # resets color to terminal's FG color.
+colorK="\033[0;30m"       # regular black
+colorR="\033[0;31m"       # regular red
+colorG="\033[0;32m"       # regular green
+colorY="\033[0;33m"       # regular yellow
+colorB="\033[0;34m"       # regular blue
+colorM="\033[0;35m"       # regular magenta
+colorC="\033[0;36m"       # regular cyan
+colorW="\033[0;37m"       # regular white
+colorKEM="\033[1;30m"     # bold black
+colorREM="\033[1;31m"     # bold red
+colorGEM="\033[1;32m"     # bold green
+colorYEM="\033[1;33m"     # bold yellow
+colorBEM="\033[1;34m"     # bold blue
+colorMEM="\033[1;35m"     # bold magenta
+colorCEM="\033[1;36m"     # bold cyan
+colorWEM="\033[1;37m"     # bold white
+
+terminate_with_reason() {
+  local EXITCODE=1
+  if [ ${#} -ge 2 ]; then
+    EXITCODE="${2}"
+  fi
+  >&2 printf "\nError: ${colorREM}%s\nAborting.\n${colorNONE}" "${1}"
+  exit ${EXITCODE}
+}
+
+require_program() {
+  if [ ${#} -lt 1 ]; then
+    terminate_with_reason "require_program() called without specifying program name. Please fix the script!" 2
+  fi
+
+  printf "> Checking whether "${colorM}%s${colorNONE}" tool exists... " "${1}";
+  if command -v "${1}" >/dev/null 2>&1 ; then
+    printf "${colorG}YES${colorNONE}.\n"
+  else
+    printf "${colorREM}NO${colorNONE}.\n"
+    printf -v reason "${colorREM}The required ${colorM}%s${colorREM} tool does not exist." "${1}"
+    terminate_with_reason "${reason}" 3
+  fi
+}
+
+sanity_check() {
+  printf "Sanity check...\n"
+  printf "> Checking whether ${colorBEM}%s${colorNONE} exists and is a directory... " "${VAULT_ROOT}"
+  if [ ! -d "${VAULT_ROOT}" ]; then
+    printf -v reason "${colorREM}VAULT_ROOT [${colorBEM}%s${colorREM}] is not a directory." "${VAULT_ROOT}"
+    terminate_with_reason "${reason}"
+  fi
+  printf "${colorG}YES${colorNONE}.\n"
+
+  require_program "rsync"
+
+  printf "Sanity-check ${colorG}passed${colorNONE}.\n"
+}
+
+while [ "${#}" -gt 0 ]; do
+  case "${1}" in
+    -v|--vault)
+      VAULT_ROOT="${2}"
+      shift
+    ;;
+  esac
+  shift
+done
+
+
+VAULT="${VAULT_ROOT}/${VAULT_NAME}"
+printf "Vault location: ${colorBEM}%s${colorNONE}\n" "${VAULT}"
+if [ ! -d "${VAULT}" ]; then
+  mkdir -p "${VAULT}"
+fi
+sanity_check
+
+
+>${LAST_BACKUP_FILE} printf "%s\n" "$(date "+%d.%m.%Y %H:%M:%S")"
+
+LOCAL_DIRS=("SelfMade" "Source")
+for d in "${LOCAL_DIRS[@]}" ; do
+  local_dir_path="${HOME}/${d}"
+  backup_dir_path="${VAULT}"
+  if [ -d "${local_dir_path}" ]; then
+    printf "%s %s %s\n" "${local_dir_path}" "-->" "${backup_dir_path}"
+    rsync -av "${local_dir_path}" "${backup_dir_path}"
+  fi
+done
+
+STORAGE_DIRS=("Audio")
+for d in "${STORAGE_DIRS[@]}" ; do
+  local_dir_path="/media/STORAGE/${d}"
+  backup_dir_path="${VAULT}/STORAGE/"
+  if [ -d "${local_dir_path}" ]; then
+    printf "%s %s %s\n" "${local_dir_path}" "-->" "${backup_dir_path}"
+    rsync -av "${local_dir_path}" "${backup_dir_path}"
+  fi
+done
