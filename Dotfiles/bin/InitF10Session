@@ -1,0 +1,64 @@
+#!/usr/bin/env bash
+
+# Name:          InitF10Session
+# Description:   Initializes the tmux's F10 socket with predefined sessions.
+# Options:       None
+# Created on:    24-06-2019
+# Last modified: 24-06-2019
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       MIT
+
+
+TARGET_SOCKET=F10
+
+# Determines whether killing old sessions is allowed when trying to create a new session.
+# If set, old sessions will be killed if their name match new session's name.
+# If unset, old sessions will be preserved - the script terminates on first detected match.
+
+#unset KILL_OLD_SESSIONS
+KILL_OLD_SESSIONS=1
+
+################################################################################
+# Creates a new tmux session of requested name. Terminates the entire script on error.
+function create_session() {
+  if [ "${#}" -ne 1 ]; then
+    >&2 printf "Critical error: create_session called with %d argument(s) [1 required].\n" "${#}"
+    >&2 printf "Please fix the script.\nAborting.\n"
+    exit 101
+  fi
+  if tmux -L "${TARGET_SOCKET}" has-session -t "${1}" 2>/dev/null; then
+    if [ -n "${KILL_OLD_SESSIONS}" ]; then
+      >&2 printf "Warning: Killing already existing session \"%s\".\n" "${1}"
+      tmux -L "${TARGET_SOCKET}" kill-session -t "${1}"
+    else
+      >&2 printf "Error: session \"%s\" already exists. Aborting.\n" "${1}"
+      exit 1
+    fi
+  fi
+
+  tmux -L "${TARGET_SOCKET}" new-session -d -s "${1}"
+}
+################################################################################
+
+if [ ! -S "${TMUX_TMPDIR}/tmux-1000/${TARGET_SOCKET}" ]; then
+  >&2 printf "Critical error: %s socket not found.\n" "${TARGET_SOCKET}"
+  exit 100
+fi
+
+# Creates a default session for own opensource/github projects:
+SESSION_OPENSOURCE="Opensource"
+AGRAL_DIR="${HOME}/Repos/agral"
+cd "${AGRAL_DIR}"
+create_session "${SESSION_OPENSOURCE}"
+# First window: default agral view.
+tmux -L "${TARGET_SOCKET}" rename-window -t "${SESSION_OPENSOURCE}:1" "agral"
+
+SESSION_DOTFILES="Dotfiles"
+DOTFILES_DIR="${HOME}/Repos/agral/Dotfiles"
+cd "${DOTFILES_DIR}"
+create_session "${SESSION_DOTFILES}"
+# First window: The contents of Dotfiles repository:
+tmux -L "${TARGET_SOCKET}" rename-window -t "${SESSION_DOTFILES}:1" "Dotfiles"
+
+
+printf "Successfully completed.\n"
