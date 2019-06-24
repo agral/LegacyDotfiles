@@ -51,3 +51,4 @@ tint2 &
 
 ##### ----- After 5 seconds: ----- ######
 (sleep 5s && spacefm -d) &
+(sleep 5s && ibus-daemon) &
