@@ -2,21 +2,14 @@
 
 # Name:          InitF10Session
 # Description:   Initializes the tmux's F10 socket with predefined sessions.
-# Options:       None
+# Options:       -k|--kill-sessions:
+#                    Determines whether killing old sessions is allowed when trying to create a new session.
+#                    If set, old sessions will be killed if their name match new session's name.
+#                    If unset, old sessions will be preserved - the script terminates on first detected match.
 # Created on:    24-06-2019
 # Last modified: 24-06-2019
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       MIT
-
-
-TARGET_SOCKET=F10
-
-# Determines whether killing old sessions is allowed when trying to create a new session.
-# If set, old sessions will be killed if their name match new session's name.
-# If unset, old sessions will be preserved - the script terminates on first detected match.
-
-#unset KILL_OLD_SESSIONS
-KILL_OLD_SESSIONS=1
 
 ################################################################################
 # Creates a new tmux session of requested name. Terminates the entire script on error.
@@ -27,11 +20,11 @@ function create_session() {
     exit 101
   fi
   if tmux -L "${TARGET_SOCKET}" has-session -t "${1}" 2>/dev/null; then
-    if [ -n "${KILL_OLD_SESSIONS}" ]; then
+    if [ -n "${KILL_SESSIONS}" ]; then
       >&2 printf "Warning: Killing already existing session \"%s\".\n" "${1}"
       tmux -L "${TARGET_SOCKET}" kill-session -t "${1}"
     else
-      >&2 printf "Error: session \"%s\" already exists. Aborting.\n" "${1}"
+      >&2 printf "Error: session \"%s\" already exists, but killing sessions is not allowed. Aborting.\n" "${1}"
       exit 1
     fi
   fi
@@ -40,6 +33,17 @@ function create_session() {
 }
 ################################################################################
 
+while [ "${#}" -gt 0 ]; do
+  case "${1}" in
+    -k|--kill-sessions)
+      export KILL_SESSIONS=1
+    ;;
+  esac
+  shift
+done
+
+
+TARGET_SOCKET=F10
 if [ ! -S "${TMUX_TMPDIR}/tmux-1000/${TARGET_SOCKET}" ]; then
   >&2 printf "Critical error: %s socket not found.\n" "${TARGET_SOCKET}"
   exit 100
@@ -59,6 +63,5 @@ cd "${DOTFILES_DIR}"
 create_session "${SESSION_DOTFILES}"
 # First window: The contents of Dotfiles repository:
 tmux -L "${TARGET_SOCKET}" rename-window -t "${SESSION_DOTFILES}:1" "Dotfiles"
-
 
 printf "Successfully completed.\n"
