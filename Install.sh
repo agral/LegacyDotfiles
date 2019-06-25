@@ -108,6 +108,7 @@ Install "${NCMPCPP_SRCDIR}/podcast_config" "${NCMPCPP_TARDIR}/podcast_config"
 counter=$(($counter + 1))
 printf "\n%d. %s:\n" "${counter}" "Other config files"
 Install "${DOTFILES_BASEDIR}/gitconfig" "${HOME}/.gitconfig"
+Install "${DOTFILES_BASEDIR}/tint2rc" "${HOME}/.config/tint2/tint2rc"
 Install "${DOTFILES_BASEDIR}/tmux.conf" "${HOME}/.tmux.conf"
 Install "${DOTFILES_BASEDIR}/xinitrc" "${HOME}/.xinitrc"
 Install "${DOTFILES_BASEDIR}/Xresources" "${HOME}/.Xresources"

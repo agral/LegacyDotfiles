@@ -1,0 +1,116 @@
+# Tint2 config file
+# Generated manually by simba (szczerbiakadam@gmail.com)
+# Documentation: https://gitlab.com/o9000/tint2/blob/master/doc/tint2.md
+
+# Background definitions
+# ID 1 - background for the entire launchbar. Dark-black.
+rounded = 0
+border_width = 1
+background_color = #020202 85
+border_color = #eee8d5 20
+border_sides = TBR
+
+# ID 2 - background for urgent windows.
+rounded = 0
+border_width = 0
+background_color = #b58900 80
+
+# ID 3 - background for the focused window.
+rounded = 4
+border_width = 0
+background_color = #cb4b16 50
+border_color = #eee8d5 100
+border_sides = TBL
+
+# Panel
+panel_items = LTSB
+panel_monitor = 1
+panel_position = center left vertical
+panel_size = 94% 32
+panel_margin = 0 0
+panel_padding = 0 0 0
+panel_dock = 0
+wm_menu = 0
+panel_layer = top
+panel_background_id = 1
+
+# Panel Autohide
+autohide = 0
+autohide_show_timeout = 0.0
+autohide_hide_timeout = 0.0
+autohide_height = 0
+strut_policy = none
+
+# Taskbar
+taskbar_mode = single_desktop
+taskbar_padding = 0 0 0
+taskbar_background_id = 0
+
+taskbar_name = 1
+taskbar_name_background_id = 0
+taskbar_name_padding = 0
+taskbar_name_font = sans 14
+taskbar_name_font_color = #666666 100
+taskbar_name_active_font_color = #FFFFFF 100
+
+# Tasks
+urgent_nb_of_blink = 1
+task_icon = 1
+task_text = 0
+task_centered = 1
+task_maximum_size = 200 32
+task_padding = 2 2
+task_background_id = 0
+task_active_background_id = 3
+task_urgent_background_id = 0
+task_iconified_background_id = 0
+
+# Task Icons
+task_icon_asb = 100 0 0
+task_active_icon_asb = 100 0 0
+task_urgent_icon_asb = 100 0 0
+task_iconified_icon_asb = 100 0 0
+
+# Fonts
+task_font = sans 7
+task_font_color = #93a1a1 50
+task_active_font_color = #93a1a1 80
+task_urgent_font_color = #93a1a1 100
+task_iconified_font_color = #93a1a1 30
+font_shadow = 0
+
+# System Tray
+systray = 1
+systray_padding = 4 2 3
+systray_sort = ascending
+systray_background_id = 0
+systray_icon_size = 0
+systray_icon_asb = 100 0 0
+
+# Tooltips
+tooltip = 0
+tooltip_padding = 0 0
+tooltip_show_timeout = 0
+tooltip_hide_timeout = 0
+tooltip_background_id = 0
+tooltip_font = Sans 10
+tooltip_font_color = #eee8d5 90
+
+# Mouse
+mouse_middle = none
+mouse_right = close
+mouse_scroll_up = none
+mouse_scroll_down = none
+
+# Battery
+battery = 0
+battery_low_status = 10
+battery_low_cmd = notify-send "battery low"
+battery_hide = never
+bat1_font = Sans 10
+bat2_font = Sans 8
+battery_font_color = #eee8d5 100
+battery_padding = 0 0
+battery_background_id = 0
+
+# End of config
