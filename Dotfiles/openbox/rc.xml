@@ -1052,28 +1052,35 @@
 
   <!-- Keybindings for taking the screenshots: -->
   <keybind key="Print">
-    <!-- Takes the screenshot covering the entire desktop. -->
     <action name="Execute">
-      <execute>
-        scrot '%Y-%m-%d_%H-%M-%S-$wx$h.png' -e 'mv $f ~/Pictures/Screenshots'
-      </execute>
+      <!-- Takes the screenshot covering the entire desktop to the system clipboard: -->
+      <command>Screenshot</command>
+    </action>
+  </keybind>
+  <keybind key="C-Print">
+    <action name="Execute">
+      <!-- Invokes a rectangle selection, then takes a screenshot to the system clipboard: -->
+      <command>Screenshot --manual</command>
+    </action>
+  </keybind>
+  <keybind key="S-Print">
+    <action name="Execute">
+      <!-- Takes the screenshot covering the entire desktop and saves it to a file: -->
+      <command>Screenshot --to-file</command>
+    </action>
+  </keybind>
+  <keybind key="C-S-Print">
+    <action name="Execute">
+      <!-- Invokes a rectangle selection, then takes a screenshot and saves it to a file: -->
+      <command>Screenshot --to-file --manual</command>
     </action>
   </keybind>
 
-  <keybind key="A-Print">
+  <keybind key="W-Print"> <!-- TODO agral fix it to be part of Screenshot utility -->
     <!-- Takes the screenshot covering the ACTIVE (FOCUSED) WINDOW ONLY. -->
     <action name="Execute">
       <execute>
-        scrot '%Y-%m-%d_%H-%M-%S-$wx$h.png' -u -e 'mv $f ~/Pictures/Screenshots'
-      </execute>
-    </action>
-  </keybind>
-
-  <keybind key="S-Print">
-    <!-- Invokes a window/rectangle selection, then takes a screenshot. -->
-    <action name="Execute">
-      <execute>
-        scrot '%Y-%m-%d_%H-%M-%S-$wx$h.png' -s -e 'mv $f ~/Pictures/Screenshots'
+        scrot '%Y-%m-%d,%H_%M_%S.png' -s -e 'mv $f ~/Pictures/Screenshots'
       </execute>
     </action>
   </keybind>
