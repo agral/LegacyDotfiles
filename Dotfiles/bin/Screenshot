@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+# Name:          Screenshot
+# Description:   Takes a screenshot utilizing ImageMagick's import function.
+# Options:       -m
+#                -m|--manual: manually select a clipping rectangle. By default the entire desktop is grabbed.
+# Created on:    17-06-2019
+# Last modified: 26-06-2019
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       MIT
+
+SCREENSHOTS_DIR="${HOME}/Pictures/Screenshots"
+TMP_FILE="/tmp/screenshot.png"
+CLIPBOARD_COMMAND="xclip -selection clipboard -t image/png -i ${TMP_FILE}"
+
+function print_help() {
+  printf "Screenshot - take a screenshot utilizing ImageMagick's import function.\n"
+  printf "  Options:\n"
+  printf "    %s: %s\n" "-h|--help" "print this help message and exit"
+  printf "    %s: %s\n" "-f|--to-file" "dump the screenshot to a file"
+  printf "                  %s\n" "(by default the screenshot is put to the system clipboard)"
+  printf "    %s: %s\n" "-m|--manual" "manually select the region of interest"
+}
+
+function take_screenshot() {
+  local cmd_prefix cmd_suffix notification_prefix notification_suffix notification_desc
+  if [ -n "${MANUAL_REQUESTED}" ]; then
+    cmd_prefix="magick import"
+    notification_prefix="Clipped screenshot"
+  else
+    cmd_prefix="magick import -window root"
+    notification_prefix="Screenshot"
+  fi
+
+  if [ -n "${TO_FILE_REQUESTED}" ]; then
+    local current_date="$(date "+%Y-%m-%d,%H_%M_%S")"
+    local output_file="${SCREENSHOTS_DIR}/${current_date}.png"
+    cmd_suffix="${output_file}"
+    notification_suffix="dumped to file"
+    notification_desc="${current_date}.png"
+  else
+    cmd_suffix="${TMP_FILE} && ${CLIPBOARD_COMMAND}"
+    notification_suffix="taken"
+    notification_desc="(copied to system clipboard)"
+  fi
+
+  local cmd="${cmd_prefix} ${cmd_suffix}"
+  local notification_title="${notification_prefix} ${notification_suffix}"
+  eval "${cmd}" && notify-send -t 2000 "${notification_title}" "${notification_desc}"
+}
+
+while [ "${#}" -gt 0 ]; do
+  case "${1}" in
+    -f|--to-file)
+      export TO_FILE_REQUESTED=1
+    ;;
+
+    -h|--help)
+      print_help
+      exit 0
+    ;;
+
+    -m|--manual)
+      export MANUAL_REQUESTED=1
+    ;;
+  esac
+  shift
+done
+
+take_screenshot
