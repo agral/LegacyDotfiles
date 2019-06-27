@@ -112,6 +112,7 @@ Install "${DOTFILES_BASEDIR}/tint2rc" "${HOME}/.config/tint2/tint2rc"
 Install "${DOTFILES_BASEDIR}/tmux.conf" "${HOME}/.tmux.conf"
 Install "${DOTFILES_BASEDIR}/xinitrc" "${HOME}/.xinitrc"
 Install "${DOTFILES_BASEDIR}/Xresources" "${HOME}/.Xresources"
+Install "${DOTFILES_BASEDIR}/Xresourcesd/molokai" "${HOME}/.local/Xresourcesd/molokai"
 
 counter="$(($counter + 1))"
 printf "\n%d. %s:\n" "${counter}" "Vim config files"
