@@ -25,6 +25,10 @@ alias AoC="cd ${DIR_REPOS_AOC}"
 export DIR_REPOS_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3/"
 alias Connect3="cd ${DIR_REPOS_CONNECT3}"
 
+export DIR_REPOS_DOTFILES="${DIR_REPOS_AGRAL}/Dotfiles"
+alias Dotfiles="cd ${DIR_REPOS_DOTFILES}"
+
+# These projects are not yet ready to be opensourced:
 export DIR_SOURCE="${HOME}/Source"
 alias Source="cd ${DIR_SOURCE}"
 
