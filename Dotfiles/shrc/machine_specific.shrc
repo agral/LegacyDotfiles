@@ -16,23 +16,23 @@ alias Repos="cd ${DIR_REPOS}"
 export DIR_REPOS_AGRAL="${DIR_REPOS}/agral"
 alias Agral="cd ${DIR_REPOS_AGRAL}"
 
-export DIR_SOURCE="${HOME}/Source"
-alias Source="cd ${DIR_SOURCE}"
+export DIR_REPOS_EULER="${DIR_REPOS_AGRAL}/CompetitiveProgramming/HackerRank/ProjectEuler"
+alias Euler="cd ${DIR_REPOS_EULER}"
 
-export DIR_EULER="${DIR_REPOS_AGRAL}/CompetitiveProgramming/HackerRank/ProjectEuler"
-alias Euler="cd ${DIR_EULER}"
+export DIR_REPOS_AOC="${DIR_REPOS_AGRAL}/CompetitiveProgramming/AoC2018"
+alias AoC="cd ${DIR_REPOS_AOC}"
 
-export DIR_AOC="${DIR_REPOS_AGRAL}/CompetitiveProgramming/AoC2018"
-alias AoC="cd ${DIR_AOC}"
-
-export DIR_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3/"
-alias Connect3="cd ${DIR_CONNECT3}"
+export DIR_REPOS_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3/"
+alias Connect3="cd ${DIR_REPOS_CONNECT3}"
 
 export DIR_SOURCE="${HOME}/Source"
 alias Source="cd ${DIR_SOURCE}"
 
-export DIR_STARMONGER="${DIR_SOURCE}/Cpp-SDL/Starmonger4"
-alias Starmonger="cd ${DIR_STARMONGER}"
+export DIR_SOURCE_NEON="${DIR_SOURCE}/Cpp-SDL/Neon"
+alias Neon="cd ${DIR_SOURCE_NEON}"
+
+export DIR_SOURCE_STARMONGER="${DIR_SOURCE}/Cpp-SDL/Starmonger4"
+alias Starmonger="cd ${DIR_SOURCE_STARMONGER}"
 
 export DIR_TOOLS="${HOME}/Tools"
 alias Tools="cd ${DIR_TOOLS}"
