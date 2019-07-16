@@ -4,7 +4,7 @@ function Anki {
 
 function Zangband
 {
-  "$(cd "${HOME}/.local/ZPlusAngband/" && ./zangband)"
+  "$(cd "${HOME}/.local/ZPlusAngband" && ./zangband)"
 }
 
 export DIR_BUILDS="${HOME}/Builds"
@@ -22,7 +22,7 @@ alias Euler="cd ${DIR_REPOS_EULER}"
 export DIR_REPOS_AOC="${DIR_REPOS_AGRAL}/CompetitiveProgramming/AoC2018"
 alias AoC="cd ${DIR_REPOS_AOC}"
 
-export DIR_REPOS_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3/"
+export DIR_REPOS_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3"
 alias Connect3="cd ${DIR_REPOS_CONNECT3}"
 
 export DIR_REPOS_DOTFILES="${DIR_REPOS_AGRAL}/Dotfiles"
@@ -42,13 +42,13 @@ export DIR_TOOLS="${HOME}/Tools"
 alias Tools="cd ${DIR_TOOLS}"
 
 # HuuugeCasino / Claw:
-export CLAW_ROOT="/home/simba/Repos/huuuge/claw/"
+export CLAW_ROOT="/home/simba/Repos/huuuge/claw"
 alias Claw="cd ${CLAW_ROOT}"
 
-export DIR_MAGICAS_OMEGA="${DIR_REPOS}/huuuge/MAGICAS_omega/"
+export DIR_MAGICAS_OMEGA="${DIR_REPOS}/huuuge/MAGICAS_omega"
 alias Omega="cd ${DIR_MAGICAS_OMEGA}"
 
-export DIR_EMSDK_ROOT="${DIR_BUILDS}/emsdk/"
+export DIR_EMSDK_ROOT="${DIR_BUILDS}/emsdk"
 EmsdkSetup()
 {
   source ${DIR_EMSDK_ROOT}/emsdk_env.sh && export PROMPT_FLAGS="${PROMPT_FLAGS}E"
