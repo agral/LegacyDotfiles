@@ -52,9 +52,9 @@ let g:UltiSnipsEditSplit="vertical"
 """ Functions """
 "Removes all trailing whitespace
 function! TrimTrailingWhitespace()
-  let l:save = winsaveview() " Saves the current view: cursor position, folds, etc.
+  let b:save = winsaveview() " Saves the current view: cursor position, folds, etc.
   keeppatterns %s/\s\+$//e   " Trims the trailing whitespace via regexp.
-  call winrestview(l:save)   " Restores the saved view.
+  call winrestview(b:save)   " Restores the saved view.
 endfunction
 nnoremap <F7> :call TrimTrailingWhitespace() <cr>
 
