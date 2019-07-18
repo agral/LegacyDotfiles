@@ -217,7 +217,6 @@ function! RmUndoFiles()
   call filter(s:undos, 'getftime(v:val) < localtime() - (60 * 60 * 24 * 90)')
   call map(s:undos, 'delete(v:val)')
 endfunction
-nnoremap <F10> :call RmUndoFiles()<cr>
 
 " Key mappings:
 let mapleader="\<Space>"
