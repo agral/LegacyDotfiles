@@ -246,7 +246,6 @@ vnoremap > >gv
 " <F-n> commands' remappings:
 nnoremap <F7> :call TrimTrailingWhitespace()<cr>
 nnoremap <F10> :call RmUndoFiles()<cr>
-nnoremap <F12> :call UpdateLastModified()<cr>
 
 """ Leader-commands """
 " Commands for quick .vimrc editing - <leader>ev and <leader>sv
@@ -385,6 +384,7 @@ augroup end
 augroup filetype_c
   autocmd!
   autocmd FileType c nnoremap <buffer> <localleader>c I//<space><esc>
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 
 augroup filetype_conky
@@ -403,6 +403,8 @@ augroup filetype_cpp
   inoremap <F3> <esc>:call SwitchBetweenHeaderAndSourceFiles()<cr>
   nnoremap <F4> :call OpenComplementingHeaderOrSourceFile()<cr>
   inoremap <F4> <esc>:call OpenComplementingHeaderOrSourceFile()<cr>
+
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 
 augroup filetype_gitcommit
@@ -415,12 +417,14 @@ augroup END
 augroup filetype_java
   autocmd!
   autocmd FileType java nnoremap <buffer> <localleader>c I//<space><esc>
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 
 augroup filetype_make
   autocmd!
   autocmd FileType make setlocal noexpandtab
   autocmd FileType make nnoremap <buffer> <localleader>c I#<space><esc>
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 
 augroup filetype_python
@@ -432,25 +436,31 @@ augroup filetype_python
   autocmd FileType python setlocal expandtab
   autocmd FileType python setlocal colorcolumn=80
   autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
+
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 
 augroup filetype_sh
   autocmd!
   autocmd FileType sh nnoremap <buffer> <localleader>c I#<space><esc>
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 
 augroup filetype_shrc
   autocmd!
   autocmd BufEnter *.shrc :setlocal filetype=sh
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 
 augroup filetype_tex
   autocmd!
   autocmd FileType tex nnoremap <buffer> <F5> :!pdflatex %<cr>
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 
 augroup filetype_vim
   autocmd!
   autocmd FileType vim nnoremap <buffer> <localleader>c I"<space><esc>
+  autocmd BufWritePre * call UpdateLastModified()
 augroup END
 """ End of Autocommands. """
