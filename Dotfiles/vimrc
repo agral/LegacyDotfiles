@@ -96,6 +96,45 @@ function! RmUndoFiles()
   call filter(s:undos, 'getftime(v:val) < localtime() - (60 * 60 * 24 * 90)')
   call map(s:undos, 'delete(v:val)')
 endfunction
+
+" Updates the "Last Modified: dd.mm.yyyy" part of header:
+function! UpdateLastModified()
+  if ! &modifiable
+    echom "UpdateLastModified(): Buffer is not modifiable."
+    return
+  endif
+  "let b:bufmodified = getbufvar("%", "&mod")
+  "if ! b:bufmodified
+  "  echom "Buffer has not been modified."
+  "  return
+  "endif
+
+  let b:pos = winsaveview()
+  let b:begin_line = 0
+  let b:end_line = 20
+  let b:time_format = "%d.%m.%Y"
+  let b:lastmodified_prefix = "Last modified:"
+
+  " This prefix but converted to lowercase should be used when search() is called.
+  " The reason for that is because search() assumes ignorecase+smartcase flags, so that
+  " case-insensitive search will be performed when pattern is given in lowercase.
+  " When substituting, the correct version of pattern will be used."
+  let b:lastmodified_prefix_lowercase = tolower(b:lastmodified_prefix)
+
+  execute b:begin_line
+  let b:line_num = search(b:lastmodified_prefix_lowercase, "", b:end_line)
+  if b:line_num > 0
+    let b:existing_line = getline(b:line_num)
+    let b:new_line = substitute(b:existing_line, b:lastmodified_prefix . ".*$", b:lastmodified_prefix . " " . strftime(b:time_format), "")
+    if b:existing_line ==# b:new_line
+      "echom "Last modified part is already up-to-date."
+    else
+      call setline(b:line_num, b:new_line)
+    endif
+  endif
+  call winrestview(b:pos)
+endfunction
+
 """ End of Functions. """
 
 " Expands tabs to spaces; keeps indent levels; aligns the braces together:
@@ -207,6 +246,7 @@ vnoremap > >gv
 " <F-n> commands' remappings:
 nnoremap <F7> :call TrimTrailingWhitespace()<cr>
 nnoremap <F10> :call RmUndoFiles()<cr>
+nnoremap <F12> :call UpdateLastModified()<cr>
 
 """ Leader-commands """
 " Commands for quick .vimrc editing - <leader>ev and <leader>sv
