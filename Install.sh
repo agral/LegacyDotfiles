@@ -4,8 +4,8 @@
 # Description:   Installs the dotfiles intelligently by creating the parent directory structure
 #                and allowing for manual application of individual changes in case of collision.
 # Options:       None
-# Created on:    11-10-2017
-# Last modified: 19-06-2019
+# Created on:    11.10.2017
+# Last modified: 25.07.2019
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       CC0
 
@@ -37,7 +37,7 @@ function Install
     exit 1
   fi
 
-  TARGET_PARENT_DIR="$(basename "${2}")"
+  TARGET_PARENT_DIR="$(dirname "${2}")"
 
   if [ ! -f "${2}" ]; then
     printf "  -> Target not found, installing... "
