@@ -103,11 +103,12 @@ function! UpdateLastModified()
     echom "UpdateLastModified(): Buffer is not modifiable."
     return
   endif
-  "let b:bufmodified = getbufvar("%", "&mod")
-  "if ! b:bufmodified
-  "  echom "Buffer has not been modified."
-  "  return
-  "endif
+
+  let b:bufmodified = getbufvar("%", "&mod")
+  if ! b:bufmodified
+    " Since the buffer has not been modified, there is no need to bump the modification date.
+    return
+  endif
 
   let b:pos = winsaveview()
   let b:begin_line = 0
