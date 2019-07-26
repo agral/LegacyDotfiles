@@ -1,3 +1,11 @@
+"""
+" Name: .vimrc
+" Description: Configures the Vim file editor
+" Created on: roughly 02.2011
+" Last modified: 26.07.2019
+" License: CC0
+"""
+
 set nocompatible
 set t_Co=256
 set encoding=utf-8
