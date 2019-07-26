@@ -422,6 +422,15 @@ augroup filetype_gitcommit
   autocmd FileType gitcommit nnoremap <buffer> <localleader>c I#<space><esc>
 augroup END
 
+augroup filetype_hpp
+  autocmd!
+
+  " For some reason Vim sets *.hpp files' type as cpp. This line fixes *.hpp's filetype to hpp:
+  autocmd BufEnter *.hpp :setlocal filetype=hpp
+  " The above would remove syntax highlighting, so the following line sets syntax back to cpp:
+  autocmd BufEnter *.hpp :set syntax=cpp
+augroup END
+
 augroup filetype_java
   autocmd!
   autocmd FileType java nnoremap <buffer> <localleader>c I//<space><esc>
