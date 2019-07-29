@@ -53,3 +53,5 @@
 [user]
   name = agral
   email = adam@gralin.ski
+[rsync]
+  sshuser = asc
