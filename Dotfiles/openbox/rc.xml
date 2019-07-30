@@ -704,7 +704,7 @@
       </action>
       <action name="Execute">
         <command>
-          notify-send -t 1500 "Colors invert" "Hardware state modification"
+          notify-send -t 1500 "Colors inverted" "Hardware state modification"
         </command>
       </action>
     </keybind>
