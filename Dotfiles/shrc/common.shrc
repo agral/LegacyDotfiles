@@ -96,6 +96,9 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
+# Registers cpr as fancy rsync command (CoPy with Rsync):
+alias cpr="rsync -ah --inplace --info=progress2"
+
 # Jokes on you: Find in Random
 alias fr='cat /dev/urandom | hexdump -C | grep --color=auto "ff ff ff"'
 alias fra='cat /dev/urandom | hexdump -C | grep --color=auto'
