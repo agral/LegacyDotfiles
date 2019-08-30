@@ -192,8 +192,11 @@ user_interface = alternative
 ## Available values: artist, album_artist, date, genre, composer, performer.
 media_library_primary_tag = artist
 
-fetch_lyrics_for_current_song_in_background = yes
+fetch_lyrics_for_current_song_in_background = no
 store_lyrics_in_song_dir = no
+# just to disable it, internet fails 95% of the time:
+lyrics_fetchers = internet
+
 generate_win32_compatible_filenames = yes
 allow_for_physical_item_deletion = no
 startup_screen = playlist
