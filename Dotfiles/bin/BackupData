@@ -3,8 +3,8 @@
 # Name:          BackupData
 # Description:   Backs up the data to the TOSHIBA_EXT vault
 # Options:       None
-# Created on:    29-01-2019
-# Last modified: 20-06-2019
+# Created on:    29.01.2019
+# Last modified: 18.08.2019
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       CC0
 
@@ -96,7 +96,7 @@ for d in "${LOCAL_DIRS[@]}" ; do
   backup_dir_path="${VAULT}"
   if [ -d "${local_dir_path}" ]; then
     printf "%s %s %s\n" "${local_dir_path}" "-->" "${backup_dir_path}"
-    rsync -av "${local_dir_path}" "${backup_dir_path}"
+    rsync -av --delete "${local_dir_path}" "${backup_dir_path}"
   fi
 done
 
@@ -106,6 +106,6 @@ for d in "${STORAGE_DIRS[@]}" ; do
   backup_dir_path="${VAULT}/STORAGE/"
   if [ -d "${local_dir_path}" ]; then
     printf "%s %s %s\n" "${local_dir_path}" "-->" "${backup_dir_path}"
-    rsync -av "${local_dir_path}" "${backup_dir_path}"
+    rsync -av --delete "${local_dir_path}" "${backup_dir_path}"
   fi
 done
