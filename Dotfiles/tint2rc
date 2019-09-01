@@ -2,7 +2,7 @@
 # Description: Config file for tint2 bar (left-sided vertical dark)
 # Documentation: https://gitlab.com/o9000/tint2/blob/master/doc/tint2.md
 # Created on: 2013
-# Last modified: 30.07.2019
+# Last modified: 01.09.2019
 # Author: Adam Graliński (adam at gralin dot ski)
 # License: CC0
 
@@ -111,7 +111,7 @@ battery = 0
 battery_low_status = 10
 battery_low_cmd = notify-send "battery low"
 battery_hide = never
-bat1_font = Gohu GohuFont 8
+bat1_font = GohuFont 8
 bat2_font = Sans 8
 battery_font_color = #eee8d5 100
 battery_padding = 0 0
