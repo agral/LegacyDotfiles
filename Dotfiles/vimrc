@@ -2,7 +2,7 @@
 " Name: .vimrc
 " Description: Configures the Vim file editor
 " Created on: roughly 02.2011
-" Last modified: 26.07.2019
+" Last modified: 07.10.2019
 " License: CC0
 """
 
@@ -55,6 +55,14 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " Makes :UltiSnipsEdit open a new split instead of switching buffers:
 let g:UltiSnipsEditSplit="vertical"
 """ End of Ultisnips-related stuff """
+
+""" A.L.E.-related:
+" Disables linting asynchronously when text changes:
+let g:ale_lint_on_text_changed = "never"
+let g:ale_lint_on_insert_leave = 0
+
+let g:ale_lint_on_enter = 1
+""" End of A.L.E.-related part.
 
 
 """ Functions """
