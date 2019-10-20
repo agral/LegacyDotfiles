@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ "${#}" -eq 0 ]; then
+  >&2 printf "Error: time offset has not been provided"
+  exit 1
+fi
+
+ALTERED_DATE="$(date -d "${1}")"
+shift
+
+echo "Resulting date: ${ALTERED_DATE}"
+echo "Press any key to commit, Ctrl+C to bail out:"
+read -n1 _
+
+GIT_AUTHOR_DATE="${ALTERED_DATE}" GIT_COMMITTER_DATE="${ALTERED_DATE}" git commit "${@}"
