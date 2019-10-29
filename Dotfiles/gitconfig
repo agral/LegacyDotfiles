@@ -55,3 +55,5 @@
   email = adam@gralin.ski
 [rsync]
   sshuser = asc
+[log]
+  date = iso
