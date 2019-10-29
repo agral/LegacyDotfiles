@@ -2,7 +2,7 @@
 " Name: .vimrc
 " Description: Configures the Vim file editor
 " Created on: roughly 02.2011
-" Last modified: 07.10.2019
+" Last modified: 24.10.2019
 " License: CC0
 """
 
@@ -58,10 +58,21 @@ let g:UltiSnipsEditSplit="vertical"
 
 """ A.L.E.-related:
 " Disables linting asynchronously when text changes:
+let g:airline#extensions#ale#enabled = 1
 let g:ale_lint_on_text_changed = "never"
 let g:ale_lint_on_insert_leave = 0
 
 let g:ale_lint_on_enter = 1
+let g:cpp_options = "-std=c++17 -Wall -Wextra"
+let g:ale_cpp_clang_options = g:cpp_options
+let g:ale_cpp_clangd_options = g:cpp_options
+let g:ale_cpp_clangcheck_options = g:cpp_options
+let g:ale_cpp_clangtidy_options = g:cpp_options
+let g:ale_cpp_clazy_options = g:cpp_options
+"let g:ale_cpp_cppcheck_options = g:cpp_options
+
+let g:ale_echo_msg_format = "[%linter%]: %s"
+" Note: ALE mappings are placed in the keyboard mappings deeper down.
 """ End of A.L.E.-related part.
 
 
@@ -362,6 +373,15 @@ function! Start()
   nnoremap <buffer><silent> o :enew <bar> startinsert<cr>
 endfun
 
+""" ALE-related mappings: """
+nnoremap <leader>an :ALENext<cr>
+nnoremap <leader>ap :ALEPrevious<cr>
+nnoremap <leader>ad :ALEDetail<cr>
+nnoremap <leader>at :ALEToggleBuffer<cr>
+nnoremap <leader>agd :ALEGoToDefinition<cr>
+
+""" End of ALE-related mappings. """
+
 
 """ Autocommands: """
 "augroup vimSplashScreen
@@ -428,15 +448,6 @@ augroup filetype_gitcommit
   autocmd FileType gitcommit set cc=73
   autocmd FileType gitcommit set tw=72
   autocmd FileType gitcommit nnoremap <buffer> <localleader>c I#<space><esc>
-augroup END
-
-augroup filetype_hpp
-  autocmd!
-
-  " For some reason Vim sets *.hpp files' type as cpp. This line fixes *.hpp's filetype to hpp:
-  autocmd BufEnter *.hpp :setlocal filetype=hpp
-  " The above would remove syntax highlighting, so the following line sets syntax back to cpp:
-  autocmd BufEnter *.hpp :set syntax=cpp
 augroup END
 
 augroup filetype_java
