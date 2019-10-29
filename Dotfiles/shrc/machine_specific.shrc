@@ -12,6 +12,8 @@ alias Repos="cd ${DIR_REPOS}"
 export DIR_REPOS_AGRAL="${DIR_REPOS}/agral"
 alias Agral="cd ${DIR_REPOS_AGRAL}"
 
+export DIR_HACKERRANK="${DIR_REPOS_AGRAL}/CompetitiveProgramming/HackerRank"
+
 export DIR_REPOS_EULER="${DIR_REPOS_AGRAL}/CompetitiveProgramming/HackerRank/ProjectEuler"
 alias Euler="cd ${DIR_REPOS_EULER}"
 
