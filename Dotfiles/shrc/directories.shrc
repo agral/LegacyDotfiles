@@ -1,0 +1,51 @@
+# Name:          directories SHRC file
+# Description:   Part of bash config file. Contains exports of various directories to global variables.
+# Options:       None
+# Created on:    11.11.2019
+# Last modified: 11.11.2019
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       MIT
+
+# Defines special purpose IN/OUT directories:
+export DIR_IN="${HOME}/IN"
+export DIR_OUT="${HOME}/OUT"
+
+export DIR_ARCHIVED="${HOME}/Archived"
+
+# Defines directory containing audio files and its essential subdirectories:
+export DIR_AUDIO="${HOME}/Audio"
+export DIR_MUSIC="${DIR_AUDIO}/Music"
+export DIR_SOUND="${DIR_AUDIO}/Sound"
+
+export DIR_BUILDS="${HOME}/Builds"
+
+export DIR_DATA="${HOME}/Data"
+export DIR_NOTES="${DIR_DATA}/Notes"
+
+export DIR_DOCUMENTS="${HOME}/Documents"
+
+export DIR_LEARNING="${HOME}/Learning"
+
+export DIR_LIBRARY="${HOME}/Library"
+
+export DIR_PICTURES="${HOME}/Pictures"
+export DIR_SCREENSHOTS="${DIR_PICTURES}/Screenshots"
+
+export DIR_PRIVATE="${HOME}/Private"
+
+# Defines base repositories' directory and various repositories of interest:
+export DIR_REPOS="${HOME}/Repos"
+export DIR_AGRAL="${DIR_REPOS}/agral"
+export DIR_COMPETITIVE_PROGRAMMING="${DIR_AGRAL}/CompetitiveProgramming"
+export DIR_HACKERRANK="${DIR_COMPETITIVE_PROGRAMMING}/HackerRank"
+export DIR_DOTFILES="${DIR_AGRAL}/Dotfiles"
+export DIR_HUUUGE="${DIR_REPOS}/huuuge"
+
+export DIR_SELFMADE="${HOME}/SelfMade"
+export DIR_GIMPS="${DIR_SELFMADE}/Gimps"
+
+export DIR_SOURCE="${HOME}/Source"
+export DIR_NEON="${DIR_SOURCE}/Cpp-SDL/Neon"
+export DIR_STARMONGER="${DIR_SOURCE}/Cpp-SDL/Starmonger4"
+
+export DIR_TOOLS="${HOME}/Tools"

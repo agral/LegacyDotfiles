@@ -72,6 +72,10 @@ if [ -f "${HOME}/.config/shrc/global_variables.shrc" ]; then
   . "${HOME}/.config/shrc/global_variables.shrc"
 fi
 
+if [ -f "${HOME}/.config/shrc/directories.shrc" ]; then
+  . "${HOME}/.config/shrc/directories.shrc"
+fi
+
 # Sources the common shell aliases:
 if [ -f ~/.config/shrc/common.shrc ]; then
   . "${HOME}/.config/shrc/common.shrc"

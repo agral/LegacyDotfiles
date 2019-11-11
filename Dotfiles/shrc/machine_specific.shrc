@@ -3,42 +3,6 @@ function Zangband
   "$(cd "${HOME}/.local/ZPlusAngband" && ./zangband)"
 }
 
-export DIR_BUILDS="${HOME}/Builds"
-alias Builds="cd ${DIR_BUILDS}"
-
-export DIR_REPOS="${HOME}/Repos"
-alias Repos="cd ${DIR_REPOS}"
-
-export DIR_REPOS_AGRAL="${DIR_REPOS}/agral"
-alias Agral="cd ${DIR_REPOS_AGRAL}"
-
-export DIR_HACKERRANK="${DIR_REPOS_AGRAL}/CompetitiveProgramming/HackerRank"
-
-export DIR_REPOS_EULER="${DIR_REPOS_AGRAL}/CompetitiveProgramming/HackerRank/ProjectEuler"
-alias Euler="cd ${DIR_REPOS_EULER}"
-
-export DIR_REPOS_AOC="${DIR_REPOS_AGRAL}/CompetitiveProgramming/AoC2018"
-alias AoC="cd ${DIR_REPOS_AOC}"
-
-export DIR_REPOS_CONNECT3="${DIR_REPOS_AGRAL}/SimpleGames/Connect3"
-alias Connect3="cd ${DIR_REPOS_CONNECT3}"
-
-export DIR_REPOS_DOTFILES="${DIR_REPOS_AGRAL}/Dotfiles"
-alias Dotfiles="cd ${DIR_REPOS_DOTFILES}"
-
-# These projects are not yet ready to be opensourced:
-export DIR_SOURCE="${HOME}/Source"
-alias Source="cd ${DIR_SOURCE}"
-
-export DIR_SOURCE_NEON="${DIR_SOURCE}/Cpp-SDL/Neon"
-alias Neon="cd ${DIR_SOURCE_NEON}"
-
-export DIR_SOURCE_STARMONGER="${DIR_SOURCE}/Cpp-SDL/Starmonger4"
-alias Starmonger="cd ${DIR_SOURCE_STARMONGER}"
-
-export DIR_TOOLS="${HOME}/Tools"
-alias Tools="cd ${DIR_TOOLS}"
-
 # HuuugeCasino / Claw:
 export CLAW_ROOT="${HOME}/Repos/huuuge/claw"
 alias Claw="cd ${CLAW_ROOT}"
