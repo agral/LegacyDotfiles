@@ -2,7 +2,7 @@
 " Name: .vimrc
 " Description: Configures the Vim file editor
 " Created on: roughly 02.2011
-" Last modified: 24.10.2019
+" Last modified: 25.11.2019
 " License: CC0
 """
 
@@ -398,9 +398,6 @@ augroup anyfile
     \ if line("'\"") > 0 && line("'\"") <= line("$") |
     \ exe "normal g`\"" |
     \ endif
-
-  " automatically cd's to directory of current file:
-  autocmd BufEnter * lcd %:p:h
 
   """ Makes the text copied from Vim stay in the clipboard
   "   even after exiting Vim: """
