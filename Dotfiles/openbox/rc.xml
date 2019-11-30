@@ -841,7 +841,6 @@
       <!-- GOTO TOP LEFT -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
         <x>0</x>
         <y>0</y>
         <width>50%</width>
@@ -863,7 +862,6 @@
       <!-- GOTO TOP -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
         <x>0</x>
         <y>0</y>
         <width>100%</width>
@@ -885,7 +883,6 @@
       <!-- GOTO TOP RIGHT -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
         <x>50%</x>
         <y>0</y>
         <width>50%</width>
@@ -907,7 +904,6 @@
       <!-- GOTO LEFT -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
         <x>0</x>
         <y>0</y>
         <width>50%</width>
@@ -928,7 +924,6 @@
     <keybind key="o">
       <!-- GOTO CENTER (MAXIMIZE) -->
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
       </action>
       <action name="ToggleMaximizeFull"/>
     </keybind>
@@ -943,7 +938,6 @@
       <!-- GOTO RIGHT -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
         <x>50%</x>
         <y>0</y>
         <width>50%</width>
@@ -965,7 +959,6 @@
       <!-- GOTO BOTTOM LEFT -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
         <x>0</x>
         <y>50%</y>
         <width>50%</width>
@@ -987,7 +980,6 @@
       <!-- GOTO BOTTOM -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
         <x>0</x>
         <y>50%</y>
         <width>100%</width>
@@ -1009,7 +1001,6 @@
       <!-- GOTO BOTTOM RIGHT -->
       <action name="UnmaximizeFull"/>
       <action name="MoveResizeTo">
-        <monitor>1</monitor>
         <x>50%</x>
         <y>50%</y>
         <width>50%</width>
