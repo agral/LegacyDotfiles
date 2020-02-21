@@ -5,7 +5,7 @@
 #                and allowing for manual application of individual changes in case of collision.
 # Options:       None
 # Created on:    11.10.2017
-# Last modified: 25.07.2019
+# Last modified: 21.02.2020
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       CC0
 
@@ -83,7 +83,7 @@ for file in "${SCRIPTS_SRCDIR}"/* ; do
 done
 shopt -u nullglob # restores nullglob back to its default (unset) state
 
-counter=$(($counter + 1))
+counter=$((counter + 1))
 printf "\n%d. %s:\n" "${counter}" "Openbox config files"
 OPENBOX_SRCDIR="${DOTFILES_BASEDIR}/openbox"
 OPENBOX_TARDIR="${HOME}/.config/openbox"
@@ -92,7 +92,7 @@ Install "${OPENBOX_SRCDIR}/environment" "${OPENBOX_TARDIR}/environment"
 Install "${OPENBOX_SRCDIR}/menu.xml" "${OPENBOX_TARDIR}/menu.xml"
 Install "${OPENBOX_SRCDIR}/rc.xml" "${OPENBOX_TARDIR}/rc.xml"
 
-counter=$(($counter + 1))
+counter=$((counter + 1))
 printf "\n%d. %s:\n" "${counter}" "mpd/ncmpcpp config files"
 MPD_SRCDIR="${DOTFILES_BASEDIR}/mpd"
 MPD_TARDIR="${HOME}/.config/mpd"
@@ -105,7 +105,7 @@ Install "${NCMPCPP_SRCDIR}/config" "${NCMPCPP_TARDIR}/config"
 Install "${NCMPCPP_SRCDIR}/incoming_config" "${NCMPCPP_TARDIR}/incoming_config"
 Install "${NCMPCPP_SRCDIR}/podcast_config" "${NCMPCPP_TARDIR}/podcast_config"
 
-counter=$(($counter + 1))
+counter=$((counter + 1))
 printf "\n%d. %s:\n" "${counter}" "Other config files"
 Install "${DOTFILES_BASEDIR}/gitconfig" "${HOME}/.gitconfig"
 Install "${DOTFILES_BASEDIR}/tint2rc" "${HOME}/.config/tint2/tint2rc"
@@ -113,8 +113,11 @@ Install "${DOTFILES_BASEDIR}/tmux.conf" "${HOME}/.tmux.conf"
 Install "${DOTFILES_BASEDIR}/xinitrc" "${HOME}/.xinitrc"
 Install "${DOTFILES_BASEDIR}/Xresources" "${HOME}/.Xresources"
 Install "${DOTFILES_BASEDIR}/Xresourcesd/molokai" "${HOME}/.local/Xresourcesd/molokai"
+Install "${DOTFILES_BASEDIR}/tilda/config_0" "${HOME}/.config/tilda/config_0"
+Install "${DOTFILES_BASEDIR}/tilda/config_1" "${HOME}/.config/tilda/config_1"
+Install "${DOTFILES_BASEDIR}/tilda/config_2" "${HOME}/.config/tilda/config_2"
 
-counter="$(($counter + 1))"
+counter="$((counter + 1))"
 printf "\n%d. %s:\n" "${counter}" "Vim config files"
 Install "${DOTFILES_BASEDIR}/vimrc" "${HOME}/.vimrc"
 
