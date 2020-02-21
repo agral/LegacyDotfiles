@@ -1,0 +1,163 @@
+#!/usr/bin/env bash
+
+# Name:          InitTmuxSessions
+# Description:   Initializes the common tmux's sockets (F10, F12) with predefined sessions.
+# Options:       -k|--kill-sessions:
+#                    Determines whether killing old sessions is allowed when trying to create a new session.
+#                    If set, old sessions will be killed if their name match new session's name.
+#                    If unset, old sessions will be preserved - the script terminates on first detected match.
+# Created on:    24.06.2019
+# Last modified: 21.02.2020
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       MIT
+
+################################################################################
+SCRIPT_NAME="$(basename "$(test -L "${0}" && readlink "${0}" || echo "${0}")")"
+
+# Creates a new tmux session of requested name.
+# Usage: create_session new_session_name
+# Behavior depends on global variable KILL_SESSIONS:
+# if truthy, existing sessions will be killed; otherwise, function does nothing for existing sessions.
+# Returns true if session is created, false otherwise.
+create_session() {
+  if [ "${#}" -ne 1 ]; then
+    >&2 printf "[Crit]: create_session called with %d argument(s) [1 required].\n" "${#}"
+    >&2 printf "Please fix the script.\nAborting.\n"
+    exit 101
+  fi
+  if tmux -L "${TARGET_SOCKET}" has-session -t "${1}" 2>/dev/null; then
+    if [ -n "${KILL_SESSIONS}" ]; then
+      >&2 printf "[Info] Killing already existing session \"%s\".\n" "${1}"
+      tmux -L "${TARGET_SOCKET}" kill-session -t "${1}"
+    else
+      >&2 printf "[Info] Skipping already existing session \"%s\" (killing not allowed).\n" "${1}"
+      return 1
+    fi
+  fi
+
+  tmux -L "${TARGET_SOCKET}" new-session -d -s "${1}"
+  return "${?}"
+}
+
+# Prints error message and exits with code 100 if ${TARGET_SOCKET} is not a socket file.
+ensure_target_socket_exists() {
+  if [ ! -S "${TMUX_TMPDIR}/tmux-1000/${TARGET_SOCKET}" ]; then
+    >&2 printf "Critical error: %s socket not found.\n" "${TARGET_SOCKET}"
+    exit 100
+  fi
+}
+
+# Returns 0 if foo is found in array arr, 1 otherwise.
+# Usage: contains_element "foo" "${arr[@]}"
+contains_element() {
+  local element match="${1}"
+  shift
+  for element; do
+    [ "${element}" == "${match}" ] && return 0
+  done
+  return 1
+}
+
+print_help() {
+  printf "%s - %s\n" "${SCRIPT_NAME}" "Initializes Tmux sockets with predefined content."
+  printf "Options: %s\n" "[-hk]"
+  printf "  %s: %s\n" "-h|--help" "prints this message and exits"
+  printf "  %s: %s\n" "-k|--kill" "kills existing sessions instead of skipping them"
+}
+################################################################################
+declare -a TARGETS=("F10" "F12")
+
+while [ "${#}" -gt 0 ]; do
+  case "${1}" in
+    -h|--help)
+      print_help
+      exit 0
+    ;;
+    -k|--kill-sessions)
+      export KILL_SESSIONS=1
+    ;;
+  esac
+  shift
+done
+
+TARGET_SOCKET=F10
+if contains_element "${TARGET_SOCKET}" "${TARGETS[@]}"; then
+  ensure_target_socket_exists
+  # Creates a default session for own opensource/github projects:
+  SESSION_NAME="Opensource"
+  AGRAL_DIR="${HOME}/Repos/agral"
+  if 2>/dev/null cd "${AGRAL_DIR}"; then
+    if create_session "${SESSION_NAME}"; then
+      # First window: default agral view.
+      tmux -L "${TARGET_SOCKET}" rename-window -t "${SESSION_NAME}:1" "agral"
+    fi
+  else
+    >&2 echo "[Warn] Could not cd into ${AGRAL_DIR}. Skipping session ${SESSION_NAME}."
+  fi
+
+  SESSION_NAME="Dotfiles"
+  DOTFILES_DIR="${HOME}/Repos/agral/Dotfiles"
+  if 2>/dev/null cd "${DOTFILES_DIR}"; then
+    if create_session "${SESSION_NAME}"; then
+      # First window: The contents of Dotfiles repository:
+      tmux -L "${TARGET_SOCKET}" rename-window -t "${SESSION_NAME}:1" "Dotfiles"
+    fi
+  else
+    >&2 echo "[Warn] Could not cd into ${DOTFILES_DIR}. Skipping session ${SESSION_NAME}."
+  fi
+
+  SESSION_NAME="gralin_ski"
+  GRALIN_SKI_DIR="${HOME}/Source/Web/gral"
+  if 2>/dev/null cd "${GRALIN_SKI_DIR}"; then
+    if create_session "${SESSION_NAME}"; then
+      # First window: the contents of the main page (HTML and CSS):
+      tmux -L "${TARGET_SOCKET}" split-window -t "${SESSION_NAME}:1" -h
+      tmux -L "${TARGET_SOCKET}" select-pane -t "${SESSION_NAME}:1.2"
+      tmux -L "${TARGET_SOCKET}" send-keys -t "${SESSION_NAME}:1.2" "vim style.css" Enter
+      tmux -L "${TARGET_SOCKET}" select-pane -t "${SESSION_NAME}:1.1"
+      tmux -L "${TARGET_SOCKET}" send-keys -t "${SESSION_NAME}:1.1" "vim index.html" Enter
+      tmux -L "${TARGET_SOCKET}" rename-window -t "${SESSION_NAME}:1" "home"
+    fi # End of gralin_ski session setup
+  else
+    >&2 echo "[Warn] Could not cd into ${GRALIN_SKI_DIR}. Skipping session ${SESSION_NAME}."
+  fi
+fi
+
+TARGET_SOCKET=F12
+if contains_element "${TARGET_SOCKET}" "${TARGETS[@]}"; then
+  ensure_target_socket_exists
+  SESSION_NAME="Music"
+  MUSIC_DIR="${HOME}/Audio/Music"
+  if 2>/dev/null cd "${MUSIC_DIR}"; then
+    if create_session "${SESSION_NAME}"; then
+      # First window: ncmpcpp controlling the main mpd instance:
+      tmux -L "${TARGET_SOCKET}" rename-window -t "${SESSION_NAME}:1" "Music"
+      #tmux -L "${TARGET_SOCKET}" split-window -t "${SESSION_NAME}:1" -v
+      #tmux -L "${TARGET_SOCKET}" resize-pane -t "${SESSION_NAME}:1.2" -y 13
+      tmux -L "${TARGET_SOCKET}" send-keys -t "${SESSION_NAME}:1.1" "ncmpcpp -c ${HOME}/.ncmpcpp/config" Enter
+      #tmux -L "${TARGET_SOCKET}" send-keys -t "${SESSION_NAME}:1.2" "cava" Enter
+      #tmux -L "${TARGET_SOCKET}" select-pane -t "${SESSION_NAME}:1.1"
+
+      # Second window: ncmpcpp controlling the podcasts mpd instance:
+      tmux -L "${TARGET_SOCKET}" new-window -t "${SESSION_NAME}:2" -n "Podcasts"
+      tmux -L "${TARGET_SOCKET}" send-keys -t "${SESSION_NAME}:2" "ncmpcpp -c ${HOME}/.ncmpcpp/podcast_config" Enter
+
+      # Third window: ncmpcpp controlling the incoming mpd instance:
+      tmux -L "${TARGET_SOCKET}" new-window -t "${SESSION_NAME}:3" -n "Incoming"
+      tmux -L "${TARGET_SOCKET}" send-keys -t "${SESSION_NAME}:3" "ncmpcpp -c ${HOME}/.ncmpcpp/incoming_config" Enter
+
+      # Fourth window: downloading the streamed content:
+      if cd "${HOME}/IN/music" ; then
+      tmux -L "${TARGET_SOCKET}" new-window -t "${SESSION_NAME}:4" -n "Ripping"
+      fi
+
+      # Focuses on the first window:
+      tmux -L "${TARGET_SOCKET}" select-window -t "${SESSION_NAME}:1"
+    fi # end of "Music" session setup
+  else
+    >&2 echo "[Warn] Could not cd into ${MUSIC_DIR}. Skipping session ${SESSION_NAME}."
+  fi
+fi
+
+
+printf "Successfully completed.\n"
