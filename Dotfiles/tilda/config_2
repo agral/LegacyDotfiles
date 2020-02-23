@@ -1,5 +1,5 @@
 tilda_config_version="1.3.3"
-# command=""
+command="tmux -2 -L F10"
 font="GohuFont Medium 8"
 key="<Shift>F10"
 addtab_key="<Primary><Shift><Alt><Super>t"
