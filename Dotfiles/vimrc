@@ -2,7 +2,7 @@
 " Name: .vimrc
 " Description: Configures the Vim file editor
 " Created on: roughly 02.2011
-" Last modified: 25.11.2019
+" Last modified: 31.01.2020
 " License: CC0
 """
 
@@ -69,7 +69,12 @@ let g:ale_cpp_clangd_options = g:cpp_options
 let g:ale_cpp_clangcheck_options = g:cpp_options
 let g:ale_cpp_clangtidy_options = g:cpp_options
 let g:ale_cpp_clazy_options = g:cpp_options
+let g:ale_cpp_gcc_options = g:cpp_options
 "let g:ale_cpp_cppcheck_options = g:cpp_options
+
+let g:ale_linters = {
+\  "sh": ["shell", "shellcheck"],
+\}
 
 let g:ale_echo_msg_format = "[%linter%]: %s"
 " Note: ALE mappings are placed in the keyboard mappings deeper down.
