@@ -12,6 +12,9 @@ ExpandPath "${HOME}/Source/Scripts"
 ExpandPath "${HOME}/.local/bin"
 ExpandPath "${HOME}/.local/bin/MachineSpecific"
 
+
+export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/ssh-agent.socket"
+
 # Includes .bashrc (if it exists)
 if [ -f "${HOME}/.bashrc" ]; then
   . "${HOME}/.bashrc"
