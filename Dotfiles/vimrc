@@ -75,6 +75,7 @@ let g:ale_cpp_gcc_options = g:cpp_options
 "let g:ale_cpp_cppcheck_options = g:cpp_options
 
 let g:ale_linters = {
+\  "cpp": ["clang", "gcc"],
 \  "sh": ["shell", "shellcheck"],
 \}
 
