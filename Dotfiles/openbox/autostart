@@ -39,9 +39,7 @@ tint2 &
 ##### ----- After 3 seconds: ----- ######
 # Starts all the conkies:
 (sleep 3s && conky -c ~/.config/conky/Experimental/info.conky) &
-(sleep 3s && conky -c ~/Source/Conky/Clock/clock.conky) &
-(sleep 3s && conky -c ~/Source/Conky/Music/music.conky) &
-(sleep 3s && SwitchConky --force korean ) &
+(sleep 3s && conky -c ~/Source/Conky/master.conky) &
 (sleep 3s && tilda) &
 
 ##### ----- After 4 seconds: ----- ######
