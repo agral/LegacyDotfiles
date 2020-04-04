@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 
-# Name:          Install
+# Name:          Install.sh
 # Description:   Installs the dotfiles intelligently by creating the parent directory structure
 #                and allowing for manual application of individual changes in case of collision.
 # Options:       None
 # Created on:    11.10.2017
-# Last modified: 21.02.2020
+# Last modified: 04.04.2020
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       CC0
 
@@ -41,8 +41,7 @@ function Install
 
   if [ ! -f "${2}" ]; then
     printf "  -> Target not found, installing... "
-    mkdir -p "${TARGET_PARENT_DIR}" && cp "${1}" "${2}"
-    if [ "${?}" -eq 0 ]; then
+    if mkdir -p "${TARGET_PARENT_DIR}" && cp "${1}" "${2}"; then
       printf "done.\n"
     else
       printf "failed.\n"
