@@ -288,8 +288,8 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 nnoremap <leader>sv :source $MYVIMRC<cr>
 
 " Commands for quick snippets editing - <leader>es and <leader>eS
-nnoremap <leader>es :vsp $HOME/.vim/UltiSnips/<cr>
-nnoremap <leader>eS :UltiSnipsEdit<cr>
+nnoremap <leader>eS :vsp $HOME/.vim/UltiSnips/<cr>
+nnoremap <leader>es :UltiSnipsEdit<cr>
 
 " Commands for invoking make (make-compile and make-run):
 nnoremap <leader>mc :call RunDeepestMakefile()<cr>
