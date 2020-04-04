@@ -9,8 +9,15 @@
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       CC0
 
-
-SCRIPT_BASEDIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+# This script will be called from a symlink. The following resolves the actual script location,
+# even when called via a symlink:
+SRC="${BASH_SOURCE[0]}"
+while [ -h "${SRC}" ]; do
+  DIR="$(cd -P "$(dirname "${SRC}")" >/dev/null 2>&1 && pwd)"
+  SRC="$(readlink "${SRC}")"
+  [[ ${SRC} != /* ]] && SRC="${DIR}/${SRC}"
+done
+SCRIPT_BASEDIR="$(cd -P "$(dirname "${SRC}")" >/dev/null 2>&1 && pwd)"
 DOTFILES_BASEDIR="${SCRIPT_BASEDIR}/Dotfiles"
 MANUAL_MERGE_TOOL="meld"
 
