@@ -667,6 +667,11 @@
         <command>spacefm -w "Repos"</command>
       </action>
     </keybind>
+    <keybind key="S-r">
+      <action name="Execute">
+        <command>spacefm -w "Library/Research"</command>
+      </action>
+    </keybind>
     <keybind key="S-s">
       <action name="Execute">
         <command>spacefm -w "SelfMade"</command>
