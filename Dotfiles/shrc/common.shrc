@@ -1,17 +1,19 @@
-# This file contains functions and aliases to be sourced
-# for all the shells on all the machines.
-# Author: simba (szczerbiakadam@gmail.com)
+# Name:          common.shrc
+# Description:   Contains functions and aliases to be sourced for all the shells, on all the machines.
+#                This is a part of modularized shell config file.
+# Options:       None
+# Created on:    2015
+# Last modified: 05.04.2020
+# Author:        Adam Graliński (adam@gralin.ski)
+# License:       CC0
+
 
 # Disables the Ctrl-S/Ctrl-Q keystrokes which mess up tmux:
 stty -ixon -ixoff
 
-export SHRC_DIR="${HOME}/.config/shrc"
-alias Shrc="cd ${SHRC_DIR}"
-
 # Creates a directory and immediately enters into it:
 function Mkdir {
-  mkdir -p -- "$1"
-  cd -P -- "$1"
+  mkdir -p -- "$1" && cd -P -- "$1"
 }
 # Sometimes you realize that you want to mkdir && cd into it after you already
 # have started typing. In that case use mkdiR instead of Mkdir :
@@ -56,9 +58,6 @@ alias q='exit'
 alias k9='kill -9'
 alias ka='killall'
 
-# Fixes tmux on exotic terminals:
-alias tmux='TERM=xterm-256color tmux -2'
-
 # Forces color support of ls and various grep flavors:
 alias grep='grep --color=auto'
 alias fgrep='fgrep --color=auto'
@@ -99,10 +98,14 @@ alias .5='cd ../../../../..'
 # Registers cpr as fancy rsync command (CoPy with Rsync):
 alias cpr="rsync -ah --inplace --info=progress2"
 
-# Jokes on you: Find in Random
-alias fr='cat /dev/urandom | hexdump -C | grep --color=auto "ff ff ff"'
-alias fra='cat /dev/urandom | hexdump -C | grep --color=auto'
-alias cafe='cat /dev/urandom | hexdump -C | grep --color=auto "ca fe" | lolcat -a'
+# Terminal jokes: grep for pattern in random dumps (Find in Random)
+fr() {
+  local pattern="ca fe"
+  if [ -n "${1}" ]; then
+    pattern="${1}"
+  fi
+  </dev/urandom hexdump -C | grep --color=auto "${pattern}"
+}
 
 # Extracts archives easily:
 function Extract {
