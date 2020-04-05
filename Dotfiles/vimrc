@@ -382,11 +382,13 @@ function! Start()
 endfun
 
 """ ALE-related mappings: """
+nnoremap <leader>ad :ALEDetail<cr>
+nnoremap <leader>af :ALEFix<cr>
+nnoremap <leader>agd :ALEGoToDefinition<cr>
+nnoremap <leader>ai :ALEInfo<cr>
 nnoremap <leader>an :ALENext<cr>
 nnoremap <leader>ap :ALEPrevious<cr>
-nnoremap <leader>ad :ALEDetail<cr>
 nnoremap <leader>at :ALEToggleBuffer<cr>
-nnoremap <leader>agd :ALEGoToDefinition<cr>
 
 """ End of ALE-related mappings. """
 
