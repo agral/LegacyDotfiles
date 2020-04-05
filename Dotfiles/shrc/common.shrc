@@ -95,6 +95,8 @@ alias .3='cd ../../..'
 alias .4='cd ../../../..'
 alias .5='cd ../../../../..'
 
+alias cal="cal --monday"
+
 # Registers cpr as fancy rsync command (CoPy with Rsync):
 alias cpr="rsync -ah --inplace --info=progress2"
 
