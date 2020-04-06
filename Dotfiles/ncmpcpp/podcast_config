@@ -52,6 +52,7 @@ progressbar_look = ═>
 progressbar_boldness = yes
 default_place_to_search_in = database
 user_interface = alternative
+space_add_mode = always_add
 
 ## Available values: artist, album_artist, date, genre, composer, performer.
 media_library_primary_tag = artist
