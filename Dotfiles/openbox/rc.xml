@@ -647,6 +647,11 @@
         <command>spacefm -w "Learning"</command>
       </action>
     </keybind>
+    <keybind key="m">
+      <action name="Execute">
+        <command>spacefm -w "Audio/Music"</command>
+      </action>
+    </keybind>
     <keybind key="o">
       <action name="Execute">
         <command>spacefm -w "OUT"</command>
