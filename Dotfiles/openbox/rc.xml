@@ -478,6 +478,15 @@
       </action>
     </keybind>
 
+    <keybind key="d">
+      <action name="Execute">
+        <command>discord</command>
+      </action>
+      <action name="Execute">
+        <command>notify-send -t 1000 "Discord" "Launching"</command>
+      </action>
+    </keybind>
+
     <keybind key="e">
       <action name="Execute">
         <command>spacefm</command>
@@ -546,6 +555,15 @@
       </action>
       <action name="Execute">
         <command>notify-send -t 1500 "QtCreator" "Launching"</command>
+      </action>
+    </keybind>
+
+    <keybind key="s">
+      <action name="Execute">
+        <command>slack</command>
+      </action>
+      <action name="Execute">
+        <command>notify-send -t 1000 "Slack" "Launching"</command>
       </action>
     </keybind>
 
