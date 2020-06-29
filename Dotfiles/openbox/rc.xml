@@ -462,6 +462,14 @@
 
     <keybind key="b">
       <action name="Execute">
+        <command>brave</command>
+      </action>
+      <action name="Execute">
+        <command>notify-send -t 1000 "Brave" "Launching"</command>
+      </action>
+    </keybind>
+    <keybind key="S-b">
+      <action name="Execute">
         <command>transmission-qt</command>
       </action>
       <action name="Execute">
