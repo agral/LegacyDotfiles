@@ -1,8 +1,8 @@
 # Name:          global_variables SHRC file
 # Description:   Part of bash configuration. Contains exports of various global variables.
 # Options:       None
-# Created on:    18-04-2018
-# Last modified: 18-04-2018
+# Created on:    18.04.2018
+# Last modified: 10.07.2020
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       MIT
 
@@ -34,3 +34,6 @@ export STARDICT_DATA_DIR="${HOME}/Tools/Stardict/"
 
 # Sets tmux's temp directory to /tmp in order to get consistent paths in session descriptor files:
 export TMUX_TMPDIR="/tmp"
+
+# LC_TIME: Sets ISO time format instead of the default mm/dd/yyyy folly:
+export LC_TIME=en_DK.UTF-8
