@@ -541,7 +541,7 @@
 
     <keybind key="m">
       <action name="Execute">
-        <command>thunderbird</command>
+        <command>bash -c "LC_TIME=lt_LT thunderbird"</command>
       </action>
       <action name="Execute">
         <command>notify-send -t 1000 "Thunderbird" "Launching"</command>
