@@ -57,3 +57,5 @@
   sshuser = asc
 [log]
   date = iso
+[pull]
+  rebase = false
