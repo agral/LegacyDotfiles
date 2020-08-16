@@ -50,4 +50,4 @@ tint2 &
 ##### ----- After 5 seconds: ----- ######
 (sleep 5s && spacefm -d) &
 (sleep 5s && ibus-daemon) &
-(sleep 5s && ~/.local/bin/InitTmuxSessions ) &
+(sleep 5s && ~/.local/bin/InitTmuxSession ) &
