@@ -548,6 +548,39 @@
       </action>
     </keybind>
 
+    <keybind key="W-o">
+      <keybind key="h">
+        <action name="Execute">
+          <command>notify-send -t 3000 "W-a W-o: launch Libreoffice" "c: calc\ni: impress\nw: writer"</command>
+        </action>
+      </keybind>
+
+      <keybind key="c">
+        <action name="Execute">
+          <command>libreoffice --calc</command>
+        </action>
+        <action name="Execute">
+          <command>notify-send -t 1000 "Libreoffice Calc" "Launching"</command>
+        </action>
+      </keybind>
+      <keybind key="i">
+        <action name="Execute">
+          <command>libreoffice --impress</command>
+        </action>
+        <action name="Execute">
+          <command>notify-send -t 1000 "Libreoffice Impress" "Launching"</command>
+        </action>
+      </keybind>
+      <keybind key="w">
+        <action name="Execute">
+          <command>libreoffice --writer</command>
+        </action>
+        <action name="Execute">
+          <command>notify-send -t 1000 "Libreoffice Writer" "Launching"</command>
+        </action>
+      </keybind>
+    </keybind>
+
     <keybind key="q">
       <action name="Execute">
         <command>qutebrowser</command>
