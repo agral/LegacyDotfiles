@@ -733,6 +733,16 @@
 
   <!-- Key-chains modifying the machine/hardware state: -->
   <keybind key="W-h">
+    <keybind key="a">
+      <action name="Execute">
+        <command>pavucontrol</command>
+      </action>
+      <action name="Execute">
+        <command>
+          notify-send -t 1500 "PulseAudio Volume Control" "Launching"
+        </command>
+      </action>
+    </keybind>
     <!-- Inverts the colors on the hardware monitor: -->
     <keybind key="i">
       <action name="Execute">
