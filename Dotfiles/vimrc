@@ -2,7 +2,7 @@
 " Name: .vimrc
 " Description: Configures the Vim file editor
 " Created on: roughly 02.2011
-" Last modified: 04.04.2020
+" Last modified: 29.08.2020
 " License: CC0
 """
 
@@ -142,6 +142,12 @@ function! UpdateLastModified()
   let b:bufmodified = getbufvar("%", "&mod")
   if ! b:bufmodified
     " Since the buffer has not been modified, there is no need to bump the modification date.
+    return
+  endif
+
+  let filename_extension = expand("%:e")
+  if filename_extension ==? "SNIPPETS"
+    " Do not update the "Last Modified:" part of the snippets - these are not to be altered.
     return
   endif
 
