@@ -1,7 +1,7 @@
 ncmpcpp_directory = ~/.ncmpcpp
 mpd_host = localhost
 mpd_port = 6602
-mpd_music_dir = ~/Audio/Music/Podcasts (STORAGE)/
+mpd_music_dir = ~/Audio/Podcasts (STORAGE)/
 
 ##### there is no music visualizer #####
 #visualizer_fifo_path = /tmp/mpd.fifo
