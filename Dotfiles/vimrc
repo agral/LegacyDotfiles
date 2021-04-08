@@ -2,7 +2,7 @@
 " Name: .vimrc
 " Description: Configures the Vim file editor
 " Created on: roughly 02.2011
-" Last modified: 29.08.2020
+" Last modified: 06.04.2021
 " License: CC0
 """
 
@@ -74,15 +74,32 @@ let g:ale_cpp_clazy_options = g:cpp_options
 let g:ale_cpp_gcc_options = g:cpp_options
 "let g:ale_cpp_cppcheck_options = g:cpp_options
 
+let g:ale_css_csslint_options = "--ignore=order-alphabetical"
+
 let g:ale_linters = {
-\  "cpp": ["clang", "gcc"],
+\  "cpp": ["clang", "gcc", "clangtidy"],
 \  "sh": ["shell", "shellcheck"],
 \}
+
+""" rhysd/vim-clang-format: """
+let g:clang_format#code_style = "google"
+let g:clang_format#style_options = {
+\}
+nnoremap <leader>cf :call ClangFormat()
 
 let g:ale_echo_msg_format = "[%linter%]: %s"
 " Note: ALE mappings are placed in the keyboard mappings deeper down.
 """ End of A.L.E.-related part.
 
+""" configuration of LucHermitte/local_vimrc: """
+let g:local_vimrc = [
+  \'_vimrc_local.vim',
+  \'.lvimrc',
+  \'.config/_vimrc_local.vim',
+  \'.config/.lvimrc'
+\]
+" configuration files in ~/Source directory are to be auto-loaded:
+call lh#local_vimrc#munge("whitelist", $HOME."/Source")
 
 """ Functions """
 "Removes all trailing whitespace
@@ -400,13 +417,6 @@ nnoremap <leader>at :ALEToggleBuffer<cr>
 
 
 """ Autocommands: """
-"augroup vimSplashScreen
-"  autocmd!
-"  if argc() == 0
-"    "autocmd VimEnter * call Start()
-"  endif
-"augroup END
-
 augroup anyfile
   autocmd!
   " For any file type, jumps to the position edited the last time:
@@ -418,6 +428,9 @@ augroup anyfile
   """ Makes the text copied from Vim stay in the clipboard
   "   even after exiting Vim: """
   autocmd VimLeave * call system("xsel -ib", getreg('+'))
+
+  nnoremap <F5> :echo "Build command not mapped for this file type."<cr>
+  nnoremap <F9> :echo "Run command not mapped for this file type."<cr>
 augroup END
 
 augroup highlighting
@@ -434,6 +447,8 @@ augroup filetype_c
   autocmd!
   autocmd FileType c nnoremap <buffer> <localleader>c I//<space><esc>
   autocmd BufWritePre * call UpdateLastModified()
+
+  nnoremap <F5> :!clang %<cr>
 augroup END
 
 augroup filetype_conky
@@ -485,6 +500,8 @@ augroup filetype_python
   autocmd FileType python setlocal expandtab
   autocmd FileType python setlocal colorcolumn=80
   autocmd FileType python setlocal cinwords=if,elif,else,for,while,try,except,finally,def,class
+
+  nnoremap <F9> :!python %<cr>
 
   autocmd BufWritePre * call UpdateLastModified()
 augroup END
