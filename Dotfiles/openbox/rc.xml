@@ -539,6 +539,15 @@
       </action>
     </keybind>
 
+    <keybind key="k">
+      <action name="Execute">
+        <command>keepassxc</command>
+      </action>
+      <action name="Execute">
+        <command>notify-send -t 1000 "KeePassXC" "Launching"</command>
+      </action>
+    </keybind>
+
     <keybind key="m">
       <action name="Execute">
         <command>bash -c "LC_TIME=lt_LT thunderbird"</command>
@@ -551,7 +560,7 @@
     <keybind key="W-o">
       <keybind key="h">
         <action name="Execute">
-          <command>notify-send -t 3000 "W-a W-o: launch Libreoffice" "c: calc\ni: impress\nw: writer"</command>
+          <command>notify-send -t 3000 "W-a W-o: launch LibreOffice" "c: calc\ni: impress\nw: writer"</command>
         </action>
       </keybind>
 
@@ -759,6 +768,11 @@
     <keybind key="v">
       <action name="Execute">
         <command>spacefm -w "VMs/Shared"</command>
+      </action>
+    </keybind>
+    <keybind key="w">
+      <action name="Execute">
+        <command>spacefm -w "Source/Web/"</command>
       </action>
     </keybind>
   </keybind>

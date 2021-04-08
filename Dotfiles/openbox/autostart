@@ -29,7 +29,7 @@ tint2 &
 
 ##### ----- After 2 seconds: ----- ######
 # Starts the compositing manager:
-(sleep 2s && compton) &
+(sleep 2s && picom) &
 
 # Starts the drop-down terminals - tilda (3 instances)
 # Note: Tilda dislikes having multiple instances launched at the same moment,
