@@ -7,7 +7,7 @@
 #                    If set, old sessions will be killed if their name match new session's name.
 #                    If unset, old sessions will be preserved - the script terminates on first detected match.
 # Created on:    24.06.2019
-# Last modified: 27.02.2020
+# Last modified: 01.10.2020
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       MIT
 
@@ -132,7 +132,7 @@ if contains_element "${TARGET_SOCKET}" "${TARGETS[@]}"; then
   fi
 
   SESSION_NAME="gralin_ski"
-  GRALIN_SKI_DIR="${HOME}/Source/Web/gral"
+  GRALIN_SKI_DIR="${HOME}/Source/Web/gralin_ski"
   if 2>/dev/null cd "${GRALIN_SKI_DIR}"; then
     if create_session "${SESSION_NAME}"; then
       # First window: the contents of the main page (HTML and CSS):
@@ -146,6 +146,29 @@ if contains_element "${TARGET_SOCKET}" "${TARGETS[@]}"; then
   else
     >&2 echo "[Warn] Could not cd into ${GRALIN_SKI_DIR}. Skipping session ${SESSION_NAME}."
   fi
+
+  SESSION_NAME="Gralendar"
+  GRALENDAR_DIR="${HOME}/Source/Cpp/Gralendar"
+  if 2>/dev/null cd "${GRALENDAR_DIR}"; then
+    if create_session "${SESSION_NAME}"; then
+      tmux -L "${TARGET_SOCKET}" rename-window -t "${SESSION_NAME}:1" "Build"
+      tmux -L "${TARGET_SOCKET}" split-window -t "${SESSION_NAME}:1" -h
+      tmux -L "${TARGET_SOCKET}" select-pane -t "${SESSION_NAME}:1.2"
+      tmux -L "${TARGET_SOCKET}" send-keys -t "${SESSION_NAME}:1.2" "vim Makefile" Enter
+      tmux -L "${TARGET_SOCKET}" select-pane -t "${SESSION_NAME}:1.1"
+
+      GRALENDAR_DIR_SRC="${GRALENDAR_DIR}/src"
+      if [ -d "${GRALENDAR_DIR_SRC}" ] && 2>/dev/null cd "${GRALENDAR_DIR_SRC}"; then
+        tmux -L "${TARGET_SOCKET}" new-window -t "${SESSION_NAME}:2" -n "main"
+        tmux -L "${TARGET_SOCKET}" send-keys -t "${SESSION_NAME}:2" "vim main.cpp" Enter
+      else
+        >&2 echo "[Warn] Could not cd into ${GRALENDAR_DIR_SRC}. Skipping related windows."
+      fi # if-gralendar-dir-src-exists-and-cd'ed-into-it
+      tmux -L "${TARGET_SOCKET}" select-window -t "${SESSION_NAME}:1"
+    fi # if create_session gralendar
+  else
+    >&2 echo "[Warn] Could not cd into ${GRALENDAR_DIR}. Skipping session ${SESSION_NAME}."
+  fi # if GRALENDAR_DIR inaccessible
 fi
 
 TARGET_SOCKET=F12
