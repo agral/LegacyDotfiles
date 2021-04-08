@@ -11,6 +11,9 @@ function pacsearch {
   pacman -Ss "${@}"
 }
 
+function pacrm {
+  sudo pacman -Rsn "${@}"
+}
 
 ### Non-mandatory functions:
 function aurget {
