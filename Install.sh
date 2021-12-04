@@ -5,7 +5,7 @@
 #                and allowing for manual application of individual changes in case of collision.
 # Options:       None
 # Created on:    11.10.2017
-# Last modified: 04.04.2020
+# Last modified: 04.12.2021
 # Author:        Adam Graliński (adam@gralin.ski)
 # License:       CC0
 
@@ -19,13 +19,12 @@ while [ -h "${SRC}" ]; do
 done
 SCRIPT_BASEDIR="$(cd -P "$(dirname "${SRC}")" >/dev/null 2>&1 && pwd)"
 DOTFILES_BASEDIR="${SCRIPT_BASEDIR}/Dotfiles"
-MANUAL_MERGE_TOOL="meld"
+MANUAL_MERGE_TOOL=vimdiff
 
 # Prints out the diff status of two files.
 # Usage: Install source target
 # Params: source - a file from this repository, target - where to install it.
-function Install
-{
+Install() {
   if [ "${#}" -ne 2 ]; then
     >&2 printf "Fatal: %s\n%s %d %s\n%s" "wrong invocation of Install method." \
         "Expected exactly two arguments, but" "${#}" "have been provided." \
@@ -57,7 +56,7 @@ function Install
     if cmp "${1}" "${2}" >/dev/null 2>&1; then
       printf "  -> Files are identical.\n"
     else
-      printf "  -> Files differ, invoking %s tool...\n" "${MANUAL_MERGE_TOOL}"
+      printf "  -> Files differ, invoking %s...\n" "${MANUAL_MERGE_TOOL}"
       printf -v cmd "%s %s %s" "${MANUAL_MERGE_TOOL}" "${1}" "${2}"
       eval "${cmd}"
     fi
@@ -122,6 +121,7 @@ Install "${DOTFILES_BASEDIR}/Xresourcesd/molokai" "${HOME}/.local/Xresourcesd/mo
 Install "${DOTFILES_BASEDIR}/tilda/config_0" "${HOME}/.config/tilda/config_0"
 Install "${DOTFILES_BASEDIR}/tilda/config_1" "${HOME}/.config/tilda/config_1"
 Install "${DOTFILES_BASEDIR}/tilda/config_2" "${HOME}/.config/tilda/config_2"
+Install "${DOTFILES_BASEDIR}/flameshot.conf" "${HOME}/.config/flameshot/flameshot.conf"
 
 counter="$((counter + 1))"
 printf "\n%d. %s:\n" "${counter}" "Vim config files"
